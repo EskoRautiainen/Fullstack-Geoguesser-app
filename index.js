@@ -4,6 +4,9 @@ const express = require('express')
 // Import database connection from connection.js
 const createConnection = require('./connection')
 
+// Import routes from routes.js
+const { findAll, findById } = require('./routes')
+
 // Define default port and its backup
 const port = process.env.PORT || 3000;
 
@@ -29,9 +32,19 @@ await db.run("INSERT INTO locations (name, lat, lng) VALUES (?, ?, ?)", [
   24.9384,
 ]);
 
-// Query all rows
-const rows = await db.all("SELECT * FROM locations");
-console.log(rows);
+await db.run("INSERT INTO locations (name, lat, lng) VALUES (?, ?, ?)", [
+  "Tampere",
+  40.169,
+  21.938,
+]);
+
+await db.run("INSERT INTO locations (name, lat, lng) VALUES (?, ?, ?)", [
+  "Helsinki",
+  60.1699,
+  24.9384,
+]);
+
+findAll(app, db); // Call findAll function and pass app and db as arguments
 
 // Listen to port
 app.listen(port, () => {

@@ -1,33 +1,28 @@
-import { useState, useEffect } from "react";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+import { useState } from "react";
+import "leaflet/dist/leaflet.css";
 
-function App() {
-  const [locations, setLocations] = useState([]);
+function ClickableMap() {
+  const [clicked, setClicked] = useState(null);
 
-  useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        const response = await fetch("/api/locations");
-        const data = await response.json();
-        setLocations(data);
-      } catch (err) {
-        console.error("Failed to fetch locations", err);
-      }
-    };
-    fetchLocations();
-  }, []);
+  function ClickHandler() {
+    useMapEvents({
+      click(e) {
+        setClicked(`Lat: ${e.latlng.lat}, Lng: ${e.latlng.lng}`);
+      },
+    });
+    return null;
+  }
 
   return (
     <div>
-      <h1>Locations</h1>
-      <ul>
-        {locations.map((loc) => (
-          <li key={loc.id}>
-            {loc.name} ({loc.lat}, {loc.lng})
-          </li>
-        ))}
-      </ul>
+      {clicked && <p>You clicked: {clicked}</p>}
+      <MapContainer center={[20, 0]} zoom={2} style={{ height: "500px" }}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <ClickHandler />
+      </MapContainer>
     </div>
   );
 }
 
-export default App;
+export default ClickableMap;

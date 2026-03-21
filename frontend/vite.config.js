@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      // Allow cross-origin requests
       "/api": "http://localhost:3000",
     },
   },

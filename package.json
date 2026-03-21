@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/EskoRautiainen/Fullstack-Geoguesser-app/issues"
   },
-  "homepage": "https://github.com/EskoRautiainen/Fullstack-Geoguesser-app#readme"
+  "homepage": "https://github.com/EskoRautiainen/Fullstack-Geoguesser-app#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^6.0.1"
+  }
 }

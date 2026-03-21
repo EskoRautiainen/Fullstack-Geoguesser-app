@@ -2,7 +2,6 @@
 ## Fullstack Node.js + React App
 ### Backend (Node.js + Express):
 ```text
-Backend (Node.js + Express):
 - Runs a server on port 3000
 - Uses an in-memory SQLite database
 - Stores simple location data (name, lat, lng)

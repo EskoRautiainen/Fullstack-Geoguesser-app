@@ -39,12 +39,15 @@ await db.run("INSERT INTO locations (name, lat, lng) VALUES (?, ?, ?)", [
 ]);
 
 await db.run("INSERT INTO locations (name, lat, lng) VALUES (?, ?, ?)", [
-  "Helsinki",
-  60.1699,
-  24.9384,
+  "Turku",
+  50.16,
+  5.93,
 ]);
 
+
+// Register route handlers
 findAll(app, db); // Call findAll function and pass app and db as arguments
+findById(app, db); // Call findById function and pass app and db as arguments
 
 // Listen to port
 app.listen(port, () => {

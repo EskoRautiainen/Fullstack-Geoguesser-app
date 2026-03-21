@@ -1,23 +1,41 @@
-# Use the official Node.js 20 image as the base image
+# Stage 1: Build the frontend
+FROM node:20 AS frontend-builder
+
+WORKDIR /app
+
+# Copy package.json files first, before the source code.
+# Docker caches each step (layer). If package.json hasn't changed,
+# Docker reuses the cached npm install and skips it — much faster.
+COPY package*.json ./
+COPY frontend/package*.json frontend/
+
+# Install dependencies for the frontend workspace
+RUN npm install --workspace=frontend
+
+# Now copy the frontend source code
+COPY frontend/ frontend/
+
+# Build the frontend for production (output goes to frontend/dist/)
+RUN npm run build --workspace=frontend
+
+# Stage 2: Build the backend and serve the frontend
 FROM node:20
 
-# Install build tools
-RUN apt-get update && apt-get install -y python3 make g++
+WORKDIR /app
 
-# Set the working directory inside the container
-WORKDIR /usr/src/app
-
-# Copy package.json and package-lock.json (if exists) to the working directory
 COPY package*.json ./
+COPY backend/package*.json backend/
 
-# Install dependencies specified in package.json
-RUN npm install --build-from-source
+# Install only production dependencies (--omit=dev skips devDependencies
+# like testing tools or linters that are not needed in production)
+RUN npm install --omit=dev --workspace=backend
 
-# Copy the rest of the application files to the container's working directory
-COPY . .
+COPY backend/ backend/
 
-# Expose port 3000 to allow external access to the application
+# Copy the built frontend files from Stage 1 into the backend's
+# public/ directory, where express.static serves them
+COPY --from=frontend-builder /app/frontend/dist backend/public
+
 EXPOSE 3000
 
-# Define the command to run the application (starting the Node.js server)
-CMD ["node", "index.js"]
+CMD ["npm", "start", "--workspace=backend"]

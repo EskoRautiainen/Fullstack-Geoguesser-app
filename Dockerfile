@@ -1,4 +1,7 @@
 # Stage 1: Build the frontend
+#--------------------------------------------------------------------------------------------------------------
+
+# Starts from a Node.js 20 image
 FROM node:20 AS frontend-builder
 
 WORKDIR /app
@@ -15,10 +18,11 @@ RUN npm install --workspace=frontend
 # Now copy the frontend source code
 COPY frontend/ frontend/
 
-# Build the frontend for production (output goes to frontend/dist/)
+# Build the frontend for optimized production (output goes to frontend/dist/)
 RUN npm run build --workspace=frontend
 
 # Stage 2: Build the backend and serve the frontend
+#--------------------------------------------------------------------------------------------------------------
 FROM node:20
 
 WORKDIR /app
@@ -26,16 +30,16 @@ WORKDIR /app
 COPY package*.json ./
 COPY backend/package*.json backend/
 
-# Install only production dependencies (--omit=dev skips devDependencies
-# like testing tools or linters that are not needed in production)
+# Install only production dependencies (--omit=dev skips devDependencies like testing tools or linters that are not needed in production)
 RUN npm install --omit=dev --workspace=backend
 
 COPY backend/ backend/
 
-# Copy the built frontend files from Stage 1 into the backend's
-# public/ directory, where express.static serves them
+# Copy the built frontend files from Stage 1 into the backend's public/ directory, where express.static serves them
+# The final image contains only the backend code and the production-ready frontend assets
 COPY --from=frontend-builder /app/frontend/dist backend/public
 
+# Expose port 3000 for backend
 EXPOSE 3000
 
 CMD ["npm", "start", "--workspace=backend"]

@@ -31,7 +31,7 @@ COPY package*.json ./
 COPY backend/package*.json backend/
 
 # Install only production dependencies (--omit=dev skips devDependencies like testing tools or linters that are not needed in production)
-RUN npm install --omit=dev --workspace=backend --build-from-source
+RUN npm install --omit=dev --workspace=backend
 
 COPY backend/ backend/
 

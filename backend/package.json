@@ -1,0 +1,26 @@
+{
+  "name": "fullstack-geoguesser-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EskoRautiainen/Fullstack-Geoguesser-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EskoRautiainen/Fullstack-Geoguesser-app/issues"
+  },
+  "homepage": "https://github.com/EskoRautiainen/Fullstack-Geoguesser-app#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^6.0.1"
+  }
+}

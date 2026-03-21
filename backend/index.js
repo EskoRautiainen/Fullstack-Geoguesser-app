@@ -2,16 +2,19 @@
 const express = require('express')
 
 // Import database connection from connection.js
-const createConnection = require('./connection')
+const createConnection = require('../connection')
 
 // Import routes from routes.js
-const { findAll, findById } = require('./routes')
+const { findAll, findById } = require('../routes')
 
 // Define default port and its backup
 const port = process.env.PORT || 3000;
 
 // Create an Express app
 const app = express()
+
+const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
 
 // Define database outside of function. Can be accessed globally.
 let db;

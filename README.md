@@ -1,6 +1,5 @@
 # Release 1
-### Fullstack Node.js + React App
-<br>
+## Fullstack Node.js + React App
 ### Backend (Node.js + Express):
 ```text
 - Runs a server on port 3000

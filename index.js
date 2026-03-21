@@ -45,3 +45,9 @@ app.listen(port, () => {
 
 // Start server
 startServer();
+
+// Include graceful shutdown handler, so that database can be closed cleanly when server is stopped with Ctrl+C
+process.on("SIGINT", () => {
+  db.close();
+  process.exit(0);
+});

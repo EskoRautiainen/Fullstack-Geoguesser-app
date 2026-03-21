@@ -1,0 +1,9 @@
+### Home
+GET http://localhost:3000/
+
+### Get all locations
+GET http://localhost:3000/api/locations
+
+### Get location by ID
+GET http://localhost:3000/api/locations/1
+

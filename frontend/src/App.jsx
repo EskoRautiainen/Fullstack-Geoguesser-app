@@ -21,18 +21,28 @@ function ClickableMap() {
   const [position, setPosition] = useState({ coordinates: [0, 30], zoom: 2 });
   const [targetCountries, setTargetCountries] = useState([]); // 30 random countries
   const [currentIndex, setCurrentIndex] = useState(0); // current country to guess
+  const [result, setResult] = useState(null); // show guess result
 
-    // Load countries.txt
-    useEffect(() => {
-    fetch("/countries.txt")
-      .then((res) => res.text())
-      .then((text) => {
-        const allCountries = text.split("\n").map((c) => c.trim()).filter(Boolean);
-        // Randomly pick 30 countries
-        const shuffled = allCountries.sort(() => 0.5 - Math.random());
-        setTargetCountries(shuffled.slice(0, 30));
-      })
-      .catch((err) => console.error("Failed to load countries.txt", err));
+useEffect(() => {
+  async function fetchCountries() {
+    try {
+      const response = await fetch("/api/europe");
+      if (!response.ok) throw new Error("Fetch failed")
+      const countries = await response.json();
+
+      // Shuffle countries and pick 10
+        const shuffled = countries
+          .map(c => c.name) // extract name
+          .sort(() => Math.random() - 0.5) // shuffle
+          .slice(0, 10); // pick first 10. index 0-9
+
+        setTargetCountries(shuffled);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchCountries();
+    // ,[]) makes it so that it only runs once when the compounent mounts
   }, []);
 
   // Define a zoom in function. 
@@ -56,13 +66,14 @@ function ClickableMap() {
     setClickedCountry(name);
     const currentTarget = targetCountries[currentIndex];
     if (name === currentTarget) {
-      // Correct
+      // Correct result
+      setResult("Correct!")
       if (currentIndex +1 < targetCountries.length) {
         setCurrentIndex(currentIndex +1);
         setClickedCountry(null);
       }
     } else {
-      alert("Wrong country, try again!")
+      setResult("Wrong, try again")
     }
   };
 
@@ -80,6 +91,7 @@ function ClickableMap() {
 
       {currentTarget && <p>Click on: <b>{currentTarget}</b></p>}
       {clickedCountry && <p>You clicked: {clickedCountry}</p>}
+      {result && <p><b>{result}</b></p>}
 
       {/* Starts the map container. */}
       <ComposableMap

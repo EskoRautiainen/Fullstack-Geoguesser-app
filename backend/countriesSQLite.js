@@ -10,8 +10,8 @@ const europeCountries = [
   "Ukraine", "Northern Cyprus", "England"
 ];
 
-async function addEurope(db) {
 
+async function addEurope(db) {
   // Create table for europe if not exists
   await db.exec(`CREATE TABLE IF NOT EXISTS europe (
   countryId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,7 +20,7 @@ async function addEurope(db) {
 
   // Insert countries incrementally
   for (let country of europeCountries) {
-  await db.run(`INSERT INTO europe (name) VALUES (?)`, [country]);
+    await db.run(`INSERT INTO europe (name) VALUES (?)`, [country]);
 }
 }
 

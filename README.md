@@ -39,10 +39,12 @@ This project is a fullstack geography game built with Node.js and React, where u
 
 
 ## Project strukture
+```text
 root/
 ├── frontend/      # React app
 ├── backend/       # Express + SQLite API
 ├── package.json   # workspace config
+```
 
 ## Setup & run
 

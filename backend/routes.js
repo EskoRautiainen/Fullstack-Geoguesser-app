@@ -1,8 +1,8 @@
 // Query all rows
 function findAll(app, db) {
-app.get('/api/locations', async (req, res) => {
+app.get('/api/gamedata', async (req, res) => {
   try {
-    const rows = await db.all("SELECT * FROM locations");
+    const rows = await db.all("SELECT * FROM gamedata");
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -10,37 +10,22 @@ app.get('/api/locations', async (req, res) => {
 });
 }
 
-function findById(app, db) {
-app.get("/api/locations/:myId", async (req, res) => {
-  const id = Number(req.params.myId);
-  if (isNaN(id)) {
-    res.status(400).json({ error: "Invalid ID" });
-  }
-
+function findEurope(app, db) {
+app.get('/api/europe', async (req, res) => {
   try {
-    const rows = await db.all("SELECT * FROM locations WHERE id = ?", [id]);
-
-    if (rows.length === 0) {
-        return res.status(404).json({ error: "Location not found" });
-      } else {
-        res.json(rows);
-      }
+    const rows = await db.all("SELECT * FROM europe");
+    res.json(rows);
   } catch (err) {
-    if (err.message === "Not Found") {
-      res.status(404).json({ error: "Location not found" });
-    } else {
-      res.status(500).json({ error: "Database error"});
-    }
+    res.status(500).json({ error: err.message });
   }
 });
 }
 
 
 
-
 module.exports = {
   findAll,
-  findById,
+  findEurope,
 //  deleteById,
 //  post
 };

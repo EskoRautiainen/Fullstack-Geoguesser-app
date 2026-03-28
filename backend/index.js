@@ -5,7 +5,8 @@ const express = require('express')
 const createConnection = require('./connection')
 
 // Import routes from routes.js
-const { findAll, findById } = require('./routes')
+const { findAll, findEurope} = require('./routes')
+const { addEurope} = require('./countriesSQLite')
 
 const path = require("path");
 
@@ -24,34 +25,30 @@ let db;
 async function startServer() {
 db = await createConnection();
 
+
 try {
-// Create a table
-await db.exec(`CREATE TABLE IF NOT EXISTS locations
-  (id INTEGER PRIMARY KEY, name TEXT, lat REAL, lng REAL)`);
+    // Create gamedata table
+    await db.exec(`CREATE TABLE IF NOT EXISTS gamedata (
+      gameId INTEGER PRIMARY KEY,
+      currentRound INTEGER NOT NULL,
+      roundAmount INTEGER NOT NULL,
+      roundCountries TEXT NOT NULL,
+      totalScore INTEGER DEFAULT 0
+    )`);
 
-// Insert data — the ? placeholders prevent SQL injection
-await db.run("INSERT INTO locations (name, lat, lng) VALUES (?, ?, ?)", [
-  "Helsinki",
-  60.1699,
-  24.9384,
-]);
+// Insert sample data if empty
+    await db.run(`INSERT INTO gamedata (gameId, currentRound, roundAmount, roundCountries, totalScore)
+      VALUES (?, ?, ?, ?, ?)`, [1, 2, 3, JSON.stringify(["Finland","Sweden","Norway"]), 15]);
 
-await db.run("INSERT INTO locations (name, lat, lng) VALUES (?, ?, ?)", [
-  "Tampere",
-  40.169,
-  21.938,
-]);
-
-await db.run("INSERT INTO locations (name, lat, lng) VALUES (?, ?, ?)", [
-  "Turku",
-  50.16,
-  5.93,
-]);
+await addEurope(db);
 
 
 // Register route handlers
 findAll(app, db); // Call findAll function and pass app and db as arguments
-findById(app, db); // Call findById function and pass app and db as arguments
+findEurope(app, db);
+
+
+
 
 // Listen to port
 app.listen(port, () => {

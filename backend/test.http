@@ -1,9 +1,12 @@
 ### Home
 GET http://localhost:3000/
 
-### Get all locations
-GET http://localhost:3000/api/locations
+### Get game data
+GET http://localhost:3000/api/gamedata
 
-### Get location by ID
-GET http://localhost:3000/api/locations/1
+### Get europe data
+GET http://localhost:3000/api/europe
+
+### Get post game data
+POST http://localhost:3000/api/gamedata
 

@@ -1,5 +1,5 @@
 // Imports
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 
 // GeoJSON containing all world countries polygons
@@ -19,6 +19,21 @@ function ClickableMap() {
   const [clickedCountry, setClickedCountry] = useState(null);
   // Declare starting position and zoom level
   const [position, setPosition] = useState({ coordinates: [0, 30], zoom: 2 });
+  const [targetCountries, setTargetCountries] = useState([]); // 30 random countries
+  const [currentIndex, setCurrentIndex] = useState(0); // current country to guess
+
+    // Load countries.txt
+    useEffect(() => {
+    fetch("/countries.txt")
+      .then((res) => res.text())
+      .then((text) => {
+        const allCountries = text.split("\n").map((c) => c.trim()).filter(Boolean);
+        // Randomly pick 30 countries
+        const shuffled = allCountries.sort(() => 0.5 - Math.random());
+        setTargetCountries(shuffled.slice(0, 30));
+      })
+      .catch((err) => console.error("Failed to load countries.txt", err));
+  }, []);
 
   // Define a zoom in function. 
   const handleZoomIn = () => {
@@ -37,6 +52,22 @@ function ClickableMap() {
     setPosition(newPosition);
   };
 
+  const handleClickCountry = (name) => {
+    setClickedCountry(name);
+    const currentTarget = targetCountries[currentIndex];
+    if (name === currentTarget) {
+      // Correct
+      if (currentIndex +1 < targetCountries.length) {
+        setCurrentIndex(currentIndex +1);
+        setClickedCountry(null);
+      }
+    } else {
+      alert("Wrong country, try again!")
+    }
+  };
+
+  const currentTarget = targetCountries[currentIndex];
+
   return (
     <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto" }}>
       <div style={{ marginBottom: "8px" }}>
@@ -46,7 +77,8 @@ function ClickableMap() {
           Zoom Out
         </button>
       </div>
-      {/* Show the name of the country you clicked on. Uses conditional rendering */}
+
+      {currentTarget && <p>Click on: <b>{currentTarget}</b></p>}
       {clickedCountry && <p>You clicked: {clickedCountry}</p>}
 
       {/* Starts the map container. */}
@@ -71,8 +103,8 @@ function ClickableMap() {
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  // Trigger setClickedCountry on country click
-                  onClick={() => setClickedCountry(geo.properties.name)}
+                  // Trigger handleClickCountry on country click
+                  onClick={() => handleClickCountry(geo.properties.name)}
                   style={{
                     // Map is white by default
                     default: {

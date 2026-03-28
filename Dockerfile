@@ -13,7 +13,7 @@ COPY package*.json ./
 COPY frontend/package*.json frontend/
 
 # Install dependencies for the frontend workspace
-RUN npm install --workspace=frontend
+RUN npm install --workspace=frontend --include=dev
 
 # Now copy the frontend source code
 COPY frontend/ frontend/

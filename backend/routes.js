@@ -10,6 +10,7 @@ app.get('/api/gamedata', async (req, res) => {
 });
 }
 
+// Test fetching data from europe table
 function findEurope(app, db) {
 app.get('/api/europe', async (req, res) => {
   try {

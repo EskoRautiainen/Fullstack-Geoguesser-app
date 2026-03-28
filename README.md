@@ -72,7 +72,7 @@ docker run -p 3000:3000 fullstack-geoguesser
 
 ## API endpoints
 
-GET api/gata
+GET api/data
 - returns current game state
 
 

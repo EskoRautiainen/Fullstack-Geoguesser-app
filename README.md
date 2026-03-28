@@ -28,6 +28,9 @@ Serves built frontend via Express
 ## Fullstack-geoguesser-app
 This project is a fullstack geography game built with Node.js and React, where users guess countries on an interactive map.
 
+<img width="1350" height="1098" alt="image" src="https://github.com/user-attachments/assets/3dec42e0-f8da-4b00-a5dd-2bf71da78e05" />
+
+
 ## Features
 
 - Interactive map using React

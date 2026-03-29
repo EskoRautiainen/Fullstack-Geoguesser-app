@@ -41,7 +41,7 @@ This project is a fullstack geography game built with Node.js and React, where u
 - Docker support
 
 
-## Project strukture
+## Project structure
 ```text
 root/
 ├── frontend/      # React app
@@ -72,8 +72,8 @@ docker run -p 3000:3000 fullstack-geoguesser
 
 ## API endpoints
 
-GET api/data
-- returns current game state
+GET api/gamedata
+- returns GET request for gamedata
 
 
 ## How it works?

@@ -1,38 +1,25 @@
-// Imports
 import React, { useState, useEffect } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 
-// GeoJSON containing all world countries polygons
-const geoUrl =
-  "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
-
-
-// Example JSON
-
-// {"type":"Feature",
-// "properties":{"name":"Jamaica"},
-// "geometry":{"type":"Polygon",
-// "coordinates":[[[-77.569601,18.490525],
-// [-76.896619,18.400867],
-// [-76.365359,18.160701],
-// [-76.199659,17.886867],
-// [-76.902561,17.868238],
-// [-77.206341,17.701116],
-// [-77.766023,17.861597],
-// [-78.337719,18.225968],
-// [-78.217727,18.454533],
-// [-77.797365,18.524218],
-// [-77.569601,18.490525]]]},
-// "id":"JAM"}
 
 // Declare function ClickableMap. Use useState to update the state.
-function ClickableMap({ gameConfig }) {
+function ClickableMap({ gameConfig }) { 
+  const [geoData, setGeoData] = useState(null);
   const [clickedCountry, setClickedCountry] = useState(null);
   // Declare starting position and zoom level
   const [position, setPosition] = useState({ coordinates: [0, 30], zoom: 2 });
   const [targetCountries, setTargetCountries] = useState([]); // 30 random countries
   const [currentIndex, setCurrentIndex] = useState(0); // current country to guess
   const [result, setResult] = useState(null); // show guess result
+
+
+  // Load GeoJSON from public folder
+  useEffect(() => {
+    fetch("/GeoJSON.json")
+      .then(res => res.json())
+      .then(setGeoData)
+      .catch(err => console.error("Failed to load GeoJSON:", err));
+  }, []);
 
 useEffect(() => {
   async function fetchCountries() {
@@ -128,8 +115,9 @@ useEffect(() => {
           // triggers when user finishes dragging/zooming the map
           onMoveEnd={handleMove}
         >
+
           {/* Load all countries from the GeoJSOn URL */}
-          <Geographies geography={geoUrl}>
+          <Geographies geography={geoData}>
             {({ geographies }) =>
               geographies.map((geo) => (
                 // Loop over each geo to render it individually with map()

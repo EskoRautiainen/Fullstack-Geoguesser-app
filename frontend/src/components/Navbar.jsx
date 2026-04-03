@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <nav className='navBar'>
       <NavLink to="/" style={linkStyle}>Home</NavLink>
-      <NavLink to="/play" style={linkStyle}>Start</NavLink>
+      <NavLink to="/play" style={linkStyle}>Play</NavLink>
     </nav>
   );
 }

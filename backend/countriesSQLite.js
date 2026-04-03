@@ -1,14 +1,14 @@
 // Add europe to SQLite database
 const europeCountries = [
-  "Albania", "Andorra", "Austria", "Belarus", "Belgium",
-  "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Czechia",
+  "Albania", "Austria", "Belarus", "Belgium",
+  "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Czech Republic",
   "Denmark", "Estonia", "Finland", "France", "Germany",
   "Greece", "Hungary", "Iceland", "Ireland", "Italy",
   "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg",
   "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands",
   "North Macedonia", "Norway", "Poland", "Portugal", "Romania",
-  "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain",
-  "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"
+  "San Marino", "Republic of Serbia", "Slovakia", "Slovenia", "Spain",
+  "Sweden", "Switzerland", "Ukraine", "England", "Vatican City"
 ];
 
 const asiaCountries = [

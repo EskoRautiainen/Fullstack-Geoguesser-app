@@ -8,9 +8,11 @@ function ClickableMap({ gameConfig }) {
   const [clickedCountry, setClickedCountry] = useState(null);
   // Declare starting position and zoom level
   const [position, setPosition] = useState({ coordinates: [0, 30], zoom: 2 });
-  const [targetCountries, setTargetCountries] = useState([]); // 30 random countries
+  const [targetCountries, setTargetCountries] = useState([]); // random countries
   const [currentIndex, setCurrentIndex] = useState(0); // current country to guess
   const [result, setResult] = useState(null); // show guess result
+  const [score, setScore] = useState(0); // track score
+  const [gameOver, setGameOver] = useState(false);
 
 
   // Load GeoJSON from public folder
@@ -71,19 +73,28 @@ useEffect(() => {
   };
 
   const handleClickCountry = (name) => {
+    if (gameOver) return;
+
     setClickedCountry(name);
     const currentTarget = targetCountries[currentIndex];
+
     if (name === currentTarget) {
       // Correct result
       setResult("Correct!")
-      if (currentIndex +1 < targetCountries.length) {
+      setScore(score +1);
+
+    // Start next round if there are more rounds
+      if (currentIndex + 1 < targetCountries.length) {
         setCurrentIndex(currentIndex +1);
         setClickedCountry(null);
-      }
-    } else {
-      setResult("Wrong, try again")
+      } else {
+      setGameOver(true);
+      setResult("Game over!")
     }
-  };
+  } else {
+    setResult("Wrong, try again")
+  }
+};
 
   const currentTarget = targetCountries[currentIndex];
 
@@ -96,7 +107,8 @@ useEffect(() => {
           Zoom Out
         </button>
       </div>
-
+      {<p>Score: <b> {score} / {targetCountries.length}</b></p>}
+      {<p>Round: <b> {currentIndex + 1} / {targetCountries.length}</b></p>}
       {currentTarget && <p>Click on: <b>{currentTarget}</b></p>}
       {clickedCountry && <p>You clicked: {clickedCountry}</p>}
       {result && <p><b>{result}</b></p>}

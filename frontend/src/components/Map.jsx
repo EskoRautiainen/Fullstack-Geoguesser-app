@@ -26,7 +26,7 @@ const geoUrl =
 // "id":"JAM"}
 
 // Declare function ClickableMap. Use useState to update the state.
-function ClickableMap() {
+function ClickableMap({ gameConfig }) {
   const [clickedCountry, setClickedCountry] = useState(null);
   // Declare starting position and zoom level
   const [position, setPosition] = useState({ coordinates: [0, 30], zoom: 2 });
@@ -37,24 +37,34 @@ function ClickableMap() {
 useEffect(() => {
   async function fetchCountries() {
     try {
-      const response = await fetch("/api/europe");
+      const response = await fetch(`/api/${gameConfig.region}`);
       if (!response.ok) throw new Error("Fetch failed")
-      const countries = await response.json();
 
-      // Shuffle countries and pick 10
-        const shuffled = countries
+      let countries = await response.json();
+
+      // Easy difficulty
+      if (gameConfig.difficulty === "easy") {
+            const shuffled = countries
           .map(c => c.name) // extract name
           .sort(() => Math.random() - 0.5) // shuffle
           .slice(0, 10); // pick first 10. index 0-9
-
-        setTargetCountries(shuffled);
-      } catch (err) {
+            setTargetCountries(shuffled);
+      } else {
+        // Hard difficulty
+            const shuffled = countries
+          .map(c => c.name) // extract name
+          .sort(() => Math.random() - 0.5) // shuffle
+          .slice(0, 30); // pick first 30. index 0-29
+            setTargetCountries(shuffled);
+      }
+    } catch (err) {
         console.error(err);
       }
     }
+
     fetchCountries();
     // ,[]) makes it so that it only runs once when the compounent mounts
-  }, []);
+}, [gameConfig]);
 
   // Define a zoom in function. 
   const handleZoomIn = () => {

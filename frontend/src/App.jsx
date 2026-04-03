@@ -1,18 +1,26 @@
 // Imports
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { useState } from "react";
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Map from './components/Map'
 
 function App() {
 
+// Store game settings
+const [gameConfig, setGameConfig] = useState({
+    region: "europe",
+    difficulty: "easy",
+    mode: "name",
+  });
+
   return (
     <Router>
       <Navbar />
-      <div className='App'>
+      <div className='app'>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/play" element={<Map/>} />
+          <Route path="/" element={<Home setGameConfig={setGameConfig}/>} />
+          <Route path="/play" element={<Map gameConfig={gameConfig}/>} />
         </Routes>
       </div>
     </Router>

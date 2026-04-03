@@ -7,6 +7,12 @@ GET http://localhost:3000/api/gamedata
 ### Get europe data
 GET http://localhost:3000/api/europe
 
+### Get europe data
+GET http://localhost:3000/api/africa
+
+### Get europe data
+GET http://localhost:3000/api/asia
+
 ### Get post game data
 POST http://localhost:3000/api/gamedata
 

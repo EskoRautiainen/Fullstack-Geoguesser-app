@@ -5,10 +5,10 @@ const express = require('express')
 const createConnection = require('./connection')
 
 // Import routes from routes.js
-const { findAll, findEurope} = require('./routes')
+const { findAll, findEurope, findAfrica, findAsia} = require('./routes')
 
 // Import SQLite logic for adding countries to database
-const { addEurope} = require('./countriesSQLite')
+const { addEurope, addAfrica, addAsia} = require('./countriesSQLite')
 
 const path = require("path");
 
@@ -42,13 +42,18 @@ try {
     await db.run(`INSERT INTO gamedata (gameId, currentRound, roundAmount, roundCountries, totalScore)
       VALUES (?, ?, ?, ?, ?)`, [1, 2, 3, JSON.stringify(["Finland","Sweden","Norway"]), 15]);
 
-    // Add europe to SQLite. App.jsx will use it later.
+    // Add countries to SQLite. App.jsx will use it later.
     await addEurope(db);
+    await addAfrica(db);
+    await addAsia(db);
 
 
-// Register route handlers
-findAll(app, db); // Call findAll function and pass app and db as arguments
-findEurope(app, db); // Test europe table
+  // Register route handlers
+  findAll(app, db);
+  findEurope(app, db);
+  findAfrica(app, db);
+  findAsia(app, db);
+
 
 
 // Listen to port

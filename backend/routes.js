@@ -1,4 +1,4 @@
-// Query all rows
+// Query gamedata
 function findAll(app, db) {
 app.get('/api/gamedata', async (req, res) => {
   try {
@@ -10,7 +10,7 @@ app.get('/api/gamedata', async (req, res) => {
 });
 }
 
-// Test fetching data from europe table
+// Query data from europe table
 function findEurope(app, db) {
 app.get('/api/europe', async (req, res) => {
   try {
@@ -22,11 +22,33 @@ app.get('/api/europe', async (req, res) => {
 });
 }
 
+// Query data from africa table
+function findAfrica(app, db) {
+app.get('/api/africa', async (req, res) => {
+  try {
+    const rows = await db.all("SELECT * FROM africa");
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+}
 
+// Query data from asia table
+function findAsia(app, db) {
+app.get('/api/asia', async (req, res) => {
+  try {
+    const rows = await db.all("SELECT * FROM asia");
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+}
 
 module.exports = {
   findAll,
   findEurope,
-//  deleteById,
-//  post
+  findAfrica,
+  findAsia
 };

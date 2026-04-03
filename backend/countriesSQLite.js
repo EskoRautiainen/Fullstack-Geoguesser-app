@@ -80,9 +80,6 @@ async function addAsia(db) {
 }
 
 
-
-
-
 module.exports = {
   addEurope,
   addAfrica,

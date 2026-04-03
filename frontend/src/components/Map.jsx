@@ -1,3 +1,4 @@
+import { point } from "leaflet";
 import React, { useState, useEffect } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 
@@ -13,6 +14,9 @@ function ClickableMap({ gameConfig }) {
   const [result, setResult] = useState(null); // show guess result
   const [score, setScore] = useState(0); // track score
   const [gameOver, setGameOver] = useState(false);
+  const [attempt, setAttempt] = useState(3);
+  const [points, setPoints] = useState(0);
+  const [time, setTime] = useState(0);
 
 
   // Load GeoJSON from public folder
@@ -22,6 +26,7 @@ function ClickableMap({ gameConfig }) {
       .then(setGeoData)
       .catch(err => console.error("Failed to load GeoJSON:", err));
   }, []);
+
 
 useEffect(() => {
   async function fetchCountries() {
@@ -72,31 +77,65 @@ useEffect(() => {
     setPosition(newPosition);
   };
 
-  const handleClickCountry = (name) => {
-    if (gameOver) return;
 
-    setClickedCountry(name);
+
+
+const handleClickCountry = (name) => {
+    if (gameOver) 
+        return;
+
     const currentTarget = targetCountries[currentIndex];
 
-    if (name === currentTarget) {
-      // Correct result
-      setResult("Correct!")
-      setScore(score +1);
 
-    // Start next round if there are more rounds
-      if (currentIndex + 1 < targetCountries.length) {
-        setCurrentIndex(currentIndex +1);
+// Start next round if there are more rounds
+function nextRound() {
+    if (currentIndex + 1 < targetCountries.length) {
+        setCurrentIndex(prev => prev +1);
         setClickedCountry(null);
-      } else {
-      setGameOver(true);
-      setResult("Game over!")
+        setAttempt(3)
+    } else {
+        setGameOver(true);
+        setPoints(prev => (prev * 5 / (time / 25)).toFixed(1))
+        setResult("Game over!")
     }
-  } else {
-    setResult("Wrong, try again")
-  }
-};
+}
 
-  const currentTarget = targetCountries[currentIndex];
+// Reduce attempts by 1 on click
+setAttempt(attempt - 1)
+setClickedCountry(name);
+
+if (name === currentTarget) {
+    // Correct resul
+    setResult("Correct!")
+    setScore(score +1);
+    setPoints(prev => prev + (attempt * 60))
+    nextRound();
+} else {
+    setResult("Wrong, try again")
+    if (attempt == 1) {
+        setAttempt(3)
+        nextRound();
+        }
+    }
+}
+
+const currentTarget = targetCountries[currentIndex];
+
+
+useEffect(() => {
+    if (gameOver) return;
+
+    const interval = setInterval(() => {
+        setTime(prev => prev +1);
+    }, 1000);
+    return () => clearInterval(interval);
+}, [gameOver]);
+
+
+
+
+
+
 
   return (
     <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto" }}>
@@ -107,10 +146,13 @@ useEffect(() => {
           Zoom Out
         </button>
       </div>
+      {<p>Total points: <b> {points} </b></p>}
+      {<p>Time: <b> {time} </b></p>}
       {<p>Score: <b> {score} / {targetCountries.length}</b></p>}
       {<p>Round: <b> {currentIndex + 1} / {targetCountries.length}</b></p>}
-      {currentTarget && <p>Click on: <b>{currentTarget}</b></p>}
-      {clickedCountry && <p>You clicked: {clickedCountry}</p>}
+      {<p>Attemps: <b>{attempt}</b></p>}
+      {<p>Click on: <b>{currentTarget}</b></p>}
+      {<p>You clicked: <b>{clickedCountry}</b></p>}
       {result && <p><b>{result}</b></p>}
 
       {/* Starts the map container. */}

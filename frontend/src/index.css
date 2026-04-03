@@ -109,3 +109,28 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.mainMenu {
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: left;
+}
+
+.mainMenu h3 {
+  margin-top: 20px;
+}
+
+.mainMenu label {
+  display: block;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.mainMenu label:hover {
+  background-color: #f0f0f0;
+}
+
+.mainMenu input[type="radio"] {
+  margin-right: 10px;
+}

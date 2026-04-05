@@ -113,9 +113,62 @@ Changes to app not reflecting?
 - Rebuild the image after backend changes. docker build ```bash--no-cache -t fullstack-geoguesser .```
 
 ## Future improvements
+```text
 - Persistent database
 - Game restart
 - Score history
 - Difficulty levels
 - UI improvements
+```
+
+
+
+# Release 3
+## Routing
+```text
+- Use React router to navigate between pages.
+- Select Difficulty, Region and Mode.
+- "Start" takes you to http://localhost:5173/play and starts the game with the chosen settings.
+- "Easy" mode has 10 rounds, while "Hard" mode has 30.
+```
+
+<img width="579" height="754" alt="image" src="https://github.com/user-attachments/assets/ed42449e-ef00-457e-a2c8-7e82e1fe8a91" />
+
+## Game logic
+```text
+- View timer
+- Keep track of score
+- Keep track of rounds
+- Keep track of remaining attempts
+- "Click on country" prompt
+- "You clicked on" feedback
+- Hovering a country turns it yellow
+- Clicking the correct country turns it green
+- Clicking on the wrong country turns it red
+- Upon guessing correctly, each remaining guess adds 60 points to total score. (Max 180 / round)
+- When game ends, total score is calculated with: (prev * 5 / (time / 50 + 1)).toFixed(1))
+- 10/10, 60 seconds results in 4090 points
+- 10/10 30 seconds results in 5625 points
+- 9/10, 30 seconds results in 5062,5 points
+```
+<img width="1354" height="961" alt="image" src="https://github.com/user-attachments/assets/7c6c7d16-faa7-4141-a0a9-8aa4a550ce4a" />
+
+## Geodata
+```text
+- No longer uses API to fetch Geodata
+- React gets Geodata from /public
+- Improved map detail noticeably
+- Geodata is up to date
+```
+
+## Future improvements
+- Persistent database
+- Game restart
+- Score history
+- UI improvements
+- Audio feedback
+- Include flags. Allow playing w/ flags only.
+
+
+
 

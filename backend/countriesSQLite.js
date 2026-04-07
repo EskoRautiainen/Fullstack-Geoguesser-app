@@ -1,54 +1,168 @@
 // Add europe to SQLite database
-const europeCountries = [
-  "Albania", "Austria", "Belarus", "Belgium",
-  "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Czechia",
-  "Denmark", "Estonia", "Finland", "France", "Germany",
-  "Greece", "Hungary", "Iceland", "Ireland", "Italy",
-  "Kosovo", "Latvia", "Lithuania", "Luxembourg",
-  "Malta", "Moldova", "Montenegro", "Netherlands",
-  "North Macedonia", "Norway", "Poland", "Portugal", "Romania",
-  "Serbia", "Slovakia", "Slovenia", "Spain",
-  "Sweden", "Switzerland", "Ukraine", "United Kingdom"
-];
+const europeCountries = {
+  Finland: "fi",
+  France: "fr",
+  Germany: "de",
+  Italy: "it",
+  Spain: "es",
+  Sweden: "se",
+  Norway: "no",
+  Denmark: "dk",
+  Poland: "pl",
+  Portugal: "pt",
+  Netherlands: "nl",
+  Belgium: "be",
+  Switzerland: "ch",
+  Austria: "at",
+  Ireland: "ie",
+  Iceland: "is",
+  Greece: "gr",
+  Hungary: "hu",
+  Czechia: "cz",
+  Slovakia: "sk",
+  Slovenia: "si",
+  Croatia: "hr",
+  Serbia: "rs",
+  Romania: "ro",
+  Bulgaria: "bg",
+  Ukraine: "ua",
+  Belarus: "by",
+  Estonia: "ee",
+  Latvia: "lv",
+  Lithuania: "lt",
+  Luxembourg: "lu",
+  Malta: "mt",
+  Albania: "al",
+  Montenegro: "me",
+  "North Macedonia": "mk",
+  "Bosnia and Herzegovina": "ba",
+  Moldova: "md",
+  Kosovo: "xk",
+  "United Kingdom" : "gb"
+};
 
-const asiaCountries = [
-  "Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh",
-  "Bhutan", "Brunei", "Cambodia", "China", "Cyprus",
-  "Georgia", "India", "Indonesia", "Iran", "Iraq",
-  "Israel", "Japan", "Jordan", "Kazakhstan", "Kuwait",
-  "Kyrgyzstan", "Laos", "Lebanon", "Malaysia", "Maldives",
-  "Mongolia", "Myanmar", "Nepal", "North Korea", "Oman",
-  "Pakistan", "Palestine", "Philippines", "Qatar", "Saudi Arabia",
-  "Singapore", "South Korea", "Sri Lanka", "Syria", "Taiwan",
-  "Tajikistan", "Thailand", "Timor-Leste", "Turkey",
-  "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen"
-];
+const asiaCountries = {
+  Afghanistan: "af",
+  Armenia: "am",
+  Azerbaijan: "az",
+  Bahrain: "bh",
+  Bangladesh: "bd",
+  Bhutan: "bt",
+  Brunei: "bn",
+  Cambodia: "kh",
+  China: "cn",
+  Cyprus: "cy",
+  Georgia: "ge",
+  India: "in",
+  Indonesia: "id",
+  Iran: "ir",
+  Iraq: "iq",
+  Israel: "il",
+  Japan: "jp",
+  Jordan: "jo",
+  Kazakhstan: "kz",
+  Kuwait: "kw",
+  Kyrgyzstan: "kg",
+  Laos: "la",
+  Lebanon: "lb",
+  Malaysia: "my",
+  Maldives: "mv",
+  Mongolia: "mn",
+  Myanmar: "mm",
+  Nepal: "np",
+  "North Korea": "kp",
+  Oman: "om",
+  Pakistan: "pk",
+  Palestine: "ps",
+  Philippines: "ph",
+  Qatar: "qa",
+  "Saudi Arabia": "sa",
+  Singapore: "sg",
+  "South Korea": "kr",
+  "Sri Lanka": "lk",
+  Syria: "sy",
+  Taiwan: "tw",
+  Tajikistan: "tj",
+  Thailand: "th",
+  "Timor-Leste": "tl",
+  Turkey: "tr",
+  Turkmenistan: "tm",
+  "United Arab Emirates": "ae",
+  Uzbekistan: "uz",
+  Vietnam: "vn",
+  Yemen: "ye"
+};
 
-const africaCountries = [
-  "Algeria", "Angola", "Benin", "Botswana", "Burkina Faso",
-  "Burundi", "Cabo Verde", "Cameroon", "Central African Republic", "Chad",
-  "Comoros", "Democratic Republic of the Congo", "Republic of the Congo",
-  "Djibouti", "Egypt", "Equatorial Guinea", "Eritrea", "Eswatini",
-  "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea",
-  "Guinea-Bissau", "Ivory Coast", "Kenya", "Lesotho", "Liberia",
-  "Libya", "Madagascar", "Malawi", "Mali", "Mauritania",
-  "Mauritius", "Morocco", "Mozambique", "Namibia", "Niger",
-  "Nigeria", "Rwanda", "Sao Tome and Principe", "Senegal", "Seychelles",
-  "Sierra Leone", "Somalia", "South Africa", "South Sudan", "Sudan",
-  "Tanzania", "Togo", "Tunisia", "Uganda", "Zambia", "Zimbabwe"
-];
+const africaCountries = {
+  Algeria: "dz",
+  Angola: "ao",
+  Benin: "bj",
+  Botswana: "bw",
+  "Burkina Faso": "bf",
+  Burundi: "bi",
+  "Cabo Verde": "cv",
+  Cameroon: "cm",
+  "Central African Republic": "cf",
+  Chad: "td",
+  Comoros: "km",
+  "Democratic Republic of the Congo": "cd",
+  "Republic of the Congo": "cg",
+  Djibouti: "dj",
+  Egypt: "eg",
+  "Equatorial Guinea": "gq",
+  Eritrea: "er",
+  Eswatini: "sz",
+  Ethiopia: "et",
+  Gabon: "ga",
+  Gambia: "gm",
+  Ghana: "gh",
+  Guinea: "gn",
+  "Guinea-Bissau": "gw",
+  "Ivory Coast": "ci",
+  Kenya: "ke",
+  Lesotho: "ls",
+  Liberia: "lr",
+  Libya: "ly",
+  Madagascar: "mg",
+  Malawi: "mw",
+  Mali: "ml",
+  Mauritania: "mr",
+  Mauritius: "mu",
+  Morocco: "ma",
+  Mozambique: "mz",
+  Namibia: "na",
+  Niger: "ne",
+  Nigeria: "ng",
+  Rwanda: "rw",
+  "Sao Tome and Principe": "st",
+  Senegal: "sn",
+  Seychelles: "sc",
+  "Sierra Leone": "sl",
+  Somalia: "so",
+  "South Africa": "za",
+  "South Sudan": "ss",
+  Sudan: "sd",
+  Tanzania: "tz",
+  Togo: "tg",
+  Tunisia: "tn",
+  Uganda: "ug",
+  Zambia: "zm",
+  Zimbabwe: "zw"
+};
 
 
 async function addEurope(db) {
   // Create table for europe if not exists
   await db.exec(`CREATE TABLE IF NOT EXISTS europe (
   countryId INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL
+  name TEXT NOT NULL,
+  code TEXT NOT NULL
 )`);
 
   // Insert countries incrementally
-  for (let country of europeCountries) {
-    await db.run(`INSERT INTO europe (name) VALUES (?)`, [country]);
+  for (let name of Object.keys(europeCountries)) {
+    const code = europeCountries[name]
+    await db.run(`INSERT INTO europe (name, code) VALUES (?, ?)`, [name, code]);
 }
 }
 
@@ -56,12 +170,14 @@ async function addAfrica(db) {
   // Create table for africa if not exists
   await db.exec(`CREATE TABLE IF NOT EXISTS africa (
   countryId INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL
+  name TEXT NOT NULL,
+  code TEXT NOT NULL
 )`);
 
   // Insert countries incrementally
-  for (let country of africaCountries) {
-    await db.run(`INSERT INTO africa (name) VALUES (?)`, [country]);
+  for (let name of Object.keys(africaCountries)) {
+    const code = africaCountries[name]
+    await db.run(`INSERT INTO africa (name, code) VALUES (?, ?)`, [name, code]);
 }
 }
 
@@ -70,12 +186,14 @@ async function addAsia(db) {
   // Create table for africa if not exists
   await db.exec(`CREATE TABLE IF NOT EXISTS asia (
   countryId INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL
+  name TEXT NOT NULL,
+  code TEXT NOT NULL
 )`);
 
   // Insert countries incrementally
-  for (let country of asiaCountries) {
-    await db.run(`INSERT INTO asia (name) VALUES (?)`, [country]);
+  for (let name of Object.keys(asiaCountries)) {
+    const code = asiaCountries[name]
+    await db.run(`INSERT INTO asia (name, code) VALUES (?, ?)`, [name, code]);
 }
 }
 

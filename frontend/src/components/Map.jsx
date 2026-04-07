@@ -93,7 +93,7 @@ function nextRound() {
         setAttempt(3)
     } else {
         setGameOver(true);
-        setPoints(prev => (prev * 5 / (time / 25)).toFixed(1))
+        setPoints(prev => (prev * 5 / (time / 50 + 1)).toFixed(1))
         setResult("Game over!")
     }
 }

@@ -42,7 +42,7 @@ async function fetchCountries() {
     // Create new data-object that contains flag img's
     countries = countries.map(country => ({
     ...country,
-    flag: `/flags2/${country.code}.png`
+    flag: `/flags/${country.code}.png`
     }));
 
       // Easy difficulty

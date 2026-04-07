@@ -183,18 +183,37 @@
   }
 }
 
-.stats-grid {
+.stats-grid1 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin-bottom: 16px;
+  font-size: 1.4rem;
+}
+
+.stats-grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+.stats-grid3 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
 }
 
 .controls {
-  margin-bottom: 12px;
+  margin: 10px;
 }
 
 .controls button {
-  margin-right: 8px;
-  padding: 6px 10px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.navBar {
+  font-size: 1.4rem;
+  padding: 5px;
 }

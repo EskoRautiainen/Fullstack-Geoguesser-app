@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
-import StatsGrid from "./Stats";
+import { StatsGrid1, StatsGrid2 } from "./Stats";
 import Controls from "./Controls";
 import "./../App.css";
 
@@ -12,7 +12,7 @@ function ClickableMap({ gameConfig }) {
   const [position, setPosition] = useState({ coordinates: [0, 30], zoom: 2 });
   const [targetCountries, setTargetCountries] = useState([]); // random countries
   const [currentIndex, setCurrentIndex] = useState(0); // current country to guess
-  const [result, setResult] = useState(null); // show guess result
+  const [result, setResult] = useState("Click on country"); // show guess result
   const [score, setScore] = useState(0); // track score
   const [gameOver, setGameOver] = useState(false);
   const [attempt, setAttempt] = useState(3);
@@ -139,22 +139,32 @@ useEffect(() => {
 
 return (
     <div>
-      <StatsGrid
+
+      <Controls
+        onZoomIn={handleZoomIn}
+        onZoomOut={handleZoomOut}
+      />
+
+      <StatsGrid1
         points={points}
         time={time}
         score={score}
         targetCountries={targetCountries}
         currentIndex={currentIndex}
+      />
+
+      <StatsGrid2
+        result = {result}
         attempt={attempt}
         currentTarget={currentTarget}
-        clickedCountry={clickedCountry}
-        result={result}
-        />
+        clickedCountry = {clickedCountry}
+      />
 
-      <Controls
-        onZoomIn={handleZoomIn}
-        onZoomOut={handleZoomOut}
-    />
+        <div className="stats-grid3">
+        <p><b>Guesses remaining: {attempt}</b></p>
+        </div>
+
+
 
       {/* Starts the map container. */}
       <ComposableMap

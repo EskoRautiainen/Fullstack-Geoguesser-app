@@ -1,7 +1,8 @@
-import { point } from "leaflet";
 import React, { useState, useEffect } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
-
+import StatsGrid from "./Stats";
+import Controls from "./Controls";
+import "./../App.css";
 
 // Declare function ClickableMap. Use useState to update the state.
 function ClickableMap({ gameConfig }) { 
@@ -137,47 +138,50 @@ useEffect(() => {
 
 
 return (
-    <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto" }}>
-    <div style={{ marginBottom: "8px" }}>
-        {/* Add zoom buttons */}
-        <button onClick={handleZoomIn}>Zoom In</button>
-        <button onClick={handleZoomOut} style={{ marginLeft: "8px" }}>
-        Zoom Out
-        </button>
-    </div>
-    {<p>Total points: <b> {points} </b></p>}
-    {<p>Time: <b> {time} </b></p>}
-    {<p>Score: <b> {score} / {targetCountries.length}</b></p>}
-    {<p>Round: <b> {currentIndex + 1} / {targetCountries.length}</b></p>}
-    {<p>Attemps: <b>{attempt}</b></p>}
-    {<p>Click on: <b>{currentTarget}</b></p>}
-    {<p>You clicked: <b>{clickedCountry}</b></p>}
-    {result && <p><b>{result}</b></p>}
+    <div>
+      <StatsGrid
+        points={points}
+        time={time}
+        score={score}
+        targetCountries={targetCountries}
+        currentIndex={currentIndex}
+        attempt={attempt}
+        currentTarget={currentTarget}
+        clickedCountry={clickedCountry}
+        result={result}
+        />
+
+      <Controls
+        onZoomIn={handleZoomIn}
+        onZoomOut={handleZoomOut}
+    />
 
       {/* Starts the map container. */}
-    <ComposableMap
+      <ComposableMap
         // Initial map zoom
         projectionConfig={{ scale: 150 }}
         // Define map size
         style={{ width: "100%", height: "800px" }}
-    >
-        <ZoomableGroup
-          // center and zoom come from the state, so moving the map updates the component 
+      >
+      <ZoomableGroup
+        // center and zoom come from the state, so moving the map updates the component 
         center={position.coordinates}
         zoom={position.zoom}
-          // triggers when user finishes dragging/zooming the map
+        // triggers when user finishes dragging/zooming the map
         onMoveEnd={handleMove}
-        >
+      >
 
-          {/* Load all countries from the GeoJSOn URL */}
-        <Geographies geography={geoData}>
-            {({ geographies }) =>
-            geographies.map((geo) => (
-                // Loop over each geo to render it individually with map()
-                <Geography
+      {/* Load all countries from the GeoJSOn URL */}
+      <Geographies geography={geoData}>
+        {({ geographies }) =>
+          geographies.map((geo) => (
+            // Loop over each geo to render it individually with map()
+              <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                  // Trigger handleClickCountry on country click
+                
+                
+                // Trigger handleClickCountry on country click
                 onClick={() => handleClickCountry(geo.properties.name)}
                 style={{
                     default: {
@@ -209,8 +213,7 @@ return (
           </Geographies>
         </ZoomableGroup>
       </ComposableMap>
-    </div>
-  );
-}
+      </div>
+)};
 
 export default ClickableMap;

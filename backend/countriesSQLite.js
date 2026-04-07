@@ -150,6 +150,45 @@ const africaCountries = {
   Zimbabwe: "zw"
 };
 
+const americaCountries = {
+  "United States": "us",
+  Canada: "ca",
+  Mexico: "mx",
+  Guatemala: "gt",
+  Belize: "bz",
+  Honduras: "hn",
+  El_Salvador: "sv",
+  Nicaragua: "ni",
+  Costa_Rica: "cr",
+  Panama: "pa",
+  "Bahamas": "bs",
+  Cuba: "cu",
+  Jamaica: "jm",
+  Haiti: "ht",
+  "Dominican Republic": "do",
+  Colombia: "co",
+  Venezuela: "ve",
+  Ecuador: "ec",
+  Peru: "pe",
+  Brazil: "br",
+  Bolivia: "bo",
+  Paraguay: "py",
+  Chile: "cl",
+  Argentina: "ar",
+  Uruguay: "uy",
+  Guyana: "gy",
+  Suriname: "sr",
+  "French Guiana": "gf",
+  "Saint Kitts and Nevis": "kn",
+  "Antigua and Barbuda": "ag",
+  Dominica: "dm",
+  "Saint Lucia": "lc",
+  "Saint Vincent and the Grenadines": "vc",
+  Grenada: "gd",
+  "Barbados": "bb",
+  "Trinidad and Tobago": "tt"
+};
+
 
 async function addEurope(db) {
   // Create table for europe if not exists
@@ -197,9 +236,25 @@ async function addAsia(db) {
 }
 }
 
+async function addAmerica(db) {
+  // Create table for america if not exists
+  await db.exec(`CREATE TABLE IF NOT EXISTS america (
+  countryId INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  code TEXT NOT NULL
+)`);
+
+  // Insert countries incrementally
+  for (let name of Object.keys(americaCountries)) {
+    const code = americaCountries[name]
+    await db.run(`INSERT INTO america (name, code) VALUES (?, ?)`, [name, code]);
+}
+}
+
 
 module.exports = {
   addEurope,
   addAfrica,
-  addAsia
+  addAsia,
+  addAmerica
 }

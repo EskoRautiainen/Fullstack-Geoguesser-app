@@ -43,7 +43,7 @@ export function StatsGrid2({
     </div>
 <div>
             You clicked: {" "}
-            {clickedCountry && (
+            {clickedCountry ? (
             <b>
             <img
                 src={clickedCountry.flag}
@@ -54,11 +54,10 @@ export function StatsGrid2({
             />
                 {clickedCountry.name}
             </b>
+        ) :  (
+            <b>-</b>
         )}
     </div>
-
     </div>
     );
 }
-
-

@@ -5,10 +5,10 @@ const express = require('express')
 const createConnection = require('./connection')
 
 // Import routes from routes.js
-const { findAll, findEurope, findAfrica, findAsia} = require('./routes')
+const { findAll, findEurope, findAfrica, findAsia, findAmerica} = require('./routes')
 
 // Import SQLite logic for adding countries to database
-const { addEurope, addAfrica, addAsia} = require('./countriesSQLite')
+const { addEurope, addAfrica, addAsia, addAmerica} = require('./countriesSQLite')
 
 const path = require("path");
 
@@ -46,6 +46,7 @@ try {
     await addEurope(db);
     await addAfrica(db);
     await addAsia(db);
+    await addAmerica(db);
 
 
   // Register route handlers
@@ -53,6 +54,7 @@ try {
   findEurope(app, db);
   findAfrica(app, db);
   findAsia(app, db);
+  findAmerica(app, db);
 
 
 

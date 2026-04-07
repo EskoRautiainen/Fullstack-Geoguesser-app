@@ -43,7 +43,7 @@ return (
           Africa
         </label>
 
-                <label>
+          <label>
           <input
             type="radio"
             name="region"
@@ -53,7 +53,20 @@ return (
           />
           Asia
         </label>
+
+          <label>
+          <input
+            type="radio"
+            name="region"
+            value="america"
+            checked={region === "america"}
+            onChange={(e) => setRegion(e.target.value)}
+          />
+          America
+        </label>
       </div>
+
+      
 
       {/* DIFFICULTY */}
       <div>

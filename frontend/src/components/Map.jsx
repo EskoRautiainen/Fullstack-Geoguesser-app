@@ -39,17 +39,21 @@ async function fetchCountries() {
 
     let countries = await response.json();
 
+    // Create new data-object that contains flag img's
+    countries = countries.map(country => ({
+    ...country,
+    flag: `/flags2/${country.code}.png`
+    }));
+
       // Easy difficulty
     if (gameConfig.difficulty === "easy") {
-            const shuffled = countries
-          .map(c => c.name) // extract name
+          const shuffled = countries
           .sort(() => Math.random() - 0.5) // shuffle
           .slice(0, 10); // pick first 10. index 0-9
             setTargetCountries(shuffled);
     } else {
         // Hard difficulty
             const shuffled = countries
-          .map(c => c.name) // extract name
           .sort(() => Math.random() - 0.5) // shuffle
           .slice(0, 30); // pick first 30. index 0-29
             setTargetCountries(shuffled);
@@ -86,7 +90,7 @@ const handleClickCountry = (name) => {
         return;
 
     const currentTarget = targetCountries[currentIndex];
-    const isCorrect = name === currentTarget; // Boolean
+    const isCorrect = name === currentTarget.name; // Boolean
 
 // Start next round if there are more rounds
 function nextRound() {
@@ -106,7 +110,7 @@ setClickedCountry(name);
 setLastGuess({name, isCorrect})
 playSound(isCorrect);
 
-if (name === currentTarget) {
+if (name === currentTarget.name) {
     // Correct result
     setResult("Correct!")
     setScore(score +1);
@@ -140,8 +144,11 @@ useEffect(() => {
 
 
 return (
-    <div>
+    
 
+    
+    <div>
+      
       <Controls
         onZoomIn={handleZoomIn}
         onZoomOut={handleZoomOut}

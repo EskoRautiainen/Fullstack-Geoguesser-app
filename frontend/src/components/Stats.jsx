@@ -26,7 +26,24 @@ export function StatsGrid2({
 }) {
     return (
     <div className="stats-grid2">
-        <div>Click on: <b>{currentTarget}</b></div>
+        <div>
+            Click on: {" "}
+            {currentTarget && (
+            <b>
+            <img
+                src={currentTarget.flag}
+                alt={`${currentTarget.name} flag`}
+                width={40}
+                height={25}
+                style={{ margin: "0 5px" }}
+            />
+                {currentTarget.name}
+            </b>
+        )
+            
+            }</div>
+
+
         <div>You clicked: <b>{clickedCountry}</b></div>
 
     </div>

@@ -20,6 +20,7 @@ function ClickableMap({ gameConfig }) {
   const [points, setPoints] = useState(0);
   const [time, setTime] = useState(0);
   const [lastGuess, setLastGuess] = useState(null);
+  const [allCountries, setAllCountries] = useState([]); // store all countries with flags. countries variable has scope issues.
 
 
   // Load GeoJSON from public folder
@@ -40,10 +41,13 @@ async function fetchCountries() {
     let countries = await response.json();
 
     // Create new data-object that contains flag img's
+    // Loop over each country
     countries = countries.map(country => ({
     ...country,
     flag: `/flags/${country.code}.png`
     }));
+
+    setAllCountries(countries); // store all countries w/ flags
 
       // Easy difficulty
     if (gameConfig.difficulty === "easy") {
@@ -89,6 +93,10 @@ const handleClickCountry = (name) => {
     if (gameOver) 
         return;
 
+  // match "Germany" with "name:Germany"
+  const clickedObject = allCountries.find(c => c.name === name);
+  setClickedCountry(clickedObject)
+
     const currentTarget = targetCountries[currentIndex];
     const isCorrect = name === currentTarget.name; // Boolean
 
@@ -106,7 +114,7 @@ function nextRound() {
 
 // Reduce attempts by 1 on click
 setAttempt(attempt - 1)
-setClickedCountry(name);
+
 setLastGuess({name, isCorrect})
 playSound(isCorrect);
 

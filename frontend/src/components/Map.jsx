@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 import { StatsGrid1, StatsGrid2 } from "./Stats";
 import Controls from "./Controls";
+import playSound from "./PlayAudio";
 import "./../App.css";
 
 // Declare function ClickableMap. Use useState to update the state.
@@ -103,6 +104,7 @@ function nextRound() {
 setAttempt(attempt - 1)
 setClickedCountry(name);
 setLastGuess({name, isCorrect})
+playSound(isCorrect);
 
 if (name === currentTarget) {
     // Correct result

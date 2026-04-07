@@ -39,12 +39,23 @@ export function StatsGrid2({
             />
                 {currentTarget.name}
             </b>
-        )
-            
-            }</div>
-
-
-        <div>You clicked: <b>{clickedCountry}</b></div>
+        )}
+    </div>
+<div>
+            You clicked: {" "}
+            {clickedCountry && (
+            <b>
+            <img
+                src={clickedCountry.flag}
+                alt={`${clickedCountry.name} flag`}
+                width={40}
+                height={25}
+                style={{ margin: "0 5px" }}
+            />
+                {clickedCountry.name}
+            </b>
+        )}
+    </div>
 
     </div>
     );

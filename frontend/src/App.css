@@ -1,6 +1,6 @@
 html, body {
-  background-color: #121212;
-  color: white;
+  background-color: #212121;
+  color: rgba(255, 255, 255, 0.972);
 }
 
 .stats-grid1 {
@@ -37,3 +37,12 @@ html, body {
   font-size: 1.4rem;
   padding: 5px;
 }
+
+h1 {
+  color: rgba(233, 233, 233, 0.972);
+}
+
+h2 {
+  color: rgba(160, 160, 160, 0.972);
+}
+

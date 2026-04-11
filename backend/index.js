@@ -8,7 +8,7 @@ const createConnection = require('./connection')
 const { findAll, findEurope, findAfrica, findAsia, findAmerica} = require('./routes')
 
 // Import SQLite logic for adding countries to database
-const { addEurope, addAfrica, addAsia, addAmerica} = require('./countriesSQLite')
+const { addContinent} = require('./countriesSQLite')
 
 const path = require("path");
 
@@ -43,10 +43,10 @@ try {
       VALUES (?, ?, ?, ?, ?)`, [1, 2, 3, JSON.stringify(["Finland","Sweden","Norway"]), 15]);
 
     // Add countries to SQLite. App.jsx will use it later.
-    await addEurope(db);
-    await addAfrica(db);
-    await addAsia(db);
-    await addAmerica(db);
+    await addContinent(db, "europe");
+    await addContinent(db, "africa");
+    await addContinent(db, "asia");
+    await addContinent(db, "america");
 
 
   // Register route handlers

@@ -189,72 +189,31 @@ const americaCountries = {
   "Trinidad and Tobago": "tt"
 };
 
+const countriesByContinent = {
+  europe: europeCountries,
+  africa: africaCountries,
+  asia: asiaCountries,
+  america: americaCountries
+};
 
-async function addEurope(db) {
-  // Create table for europe if not exists
-  await db.exec(`CREATE TABLE IF NOT EXISTS europe (
+async function addContinent(db, continent) {
+  const countries = countriesByContinent[continent];
+  
+  // Create table for continent if not exists
+  await db.exec(`CREATE TABLE IF NOT EXISTS ${continent} (
   countryId INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   code TEXT NOT NULL
 )`);
 
   // Insert countries incrementally
-  for (let name of Object.keys(europeCountries)) {
-    const code = europeCountries[name]
-    await db.run(`INSERT INTO europe (name, code) VALUES (?, ?)`, [name, code]);
-}
-}
-
-async function addAfrica(db) {
-  // Create table for africa if not exists
-  await db.exec(`CREATE TABLE IF NOT EXISTS africa (
-  countryId INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL,
-  code TEXT NOT NULL
-)`);
-
-  // Insert countries incrementally
-  for (let name of Object.keys(africaCountries)) {
-    const code = africaCountries[name]
-    await db.run(`INSERT INTO africa (name, code) VALUES (?, ?)`, [name, code]);
-}
-}
-
-
-async function addAsia(db) {
-  // Create table for africa if not exists
-  await db.exec(`CREATE TABLE IF NOT EXISTS asia (
-  countryId INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL,
-  code TEXT NOT NULL
-)`);
-
-  // Insert countries incrementally
-  for (let name of Object.keys(asiaCountries)) {
-    const code = asiaCountries[name]
-    await db.run(`INSERT INTO asia (name, code) VALUES (?, ?)`, [name, code]);
-}
-}
-
-async function addAmerica(db) {
-  // Create table for america if not exists
-  await db.exec(`CREATE TABLE IF NOT EXISTS america (
-  countryId INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL,
-  code TEXT NOT NULL
-)`);
-
-  // Insert countries incrementally
-  for (let name of Object.keys(americaCountries)) {
-    const code = americaCountries[name]
-    await db.run(`INSERT INTO america (name, code) VALUES (?, ?)`, [name, code]);
+  for (let name of Object.keys(countries)) {
+    const code = countries[name]
+    await db.run(`INSERT INTO ${continent} (name, code) VALUES (?, ?)`, [name, code]);
 }
 }
 
 
 module.exports = {
-  addEurope,
-  addAfrica,
-  addAsia,
-  addAmerica
+  addContinent
 }

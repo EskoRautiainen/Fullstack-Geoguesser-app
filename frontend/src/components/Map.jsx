@@ -5,102 +5,104 @@ import Controls from "./Controls";
 import playSound from "./PlayAudio";
 import "./../App.css";
 
-// Declare function ClickableMap. Use useState to update the state.
-function ClickableMap({ gameConfig }) { 
-  const [geoData, setGeoData] = useState(null);
-  const [clickedCountry, setClickedCountry] = useState(null);
-  // Declare starting position and zoom level
-  const [position, setPosition] = useState({ coordinates: [0, 30], zoom: 2 });
-  const [targetCountries, setTargetCountries] = useState([]); // random countries
-  const [currentIndex, setCurrentIndex] = useState(0); // current country to guess
-  const [result, setResult] = useState("Click on country"); // show guess result
-  const [score, setScore] = useState(0); // track score
-  const [gameOver, setGameOver] = useState(false);
-  const [attempt, setAttempt] = useState(3);
-  const [points, setPoints] = useState(0);
-  const [time, setTime] = useState(0);
-  const [lastGuess, setLastGuess] = useState(null);
-  const [allCountries, setAllCountries] = useState([]); // store all countries with flags. countries variable has scope issues.
-  const [revealAnswer, setRevealAnswer] = useState(null); // reveal correct location for 1.5s
 
-  // Load GeoJSON from public folder
-  useEffect(() => {
-    fetch("/GeoJSON.json")
-      .then(res => res.json())
-      .then(setGeoData)
-      .catch(err => console.error("Failed to load GeoJSON:", err));
-  }, []);
+// --------------------------------------------------------------------------------------------------------------------
+//        GAME STATE
+// --------------------------------------------------------------------------------------------------------------------
+function ClickableMap({ gameConfig }) { 
+  const [geoData, setGeoData] = useState(null);                                 // load geodata from /public 
+  const [clickedCountry, setClickedCountry] = useState(null);                   // match clicked country name w/ it's data object
+  const [position, setPosition] = useState({ coordinates: [0, 30], zoom: 2 });  // set starting position and zoom level
+  const [targetCountries, setTargetCountries] = useState([]);                   // random countries
+  const [currentIndex, setCurrentIndex] = useState(0);                          // current country to guess
+  const [score, setScore] = useState(0);                                        // track score x/10
+  const [gameOver, setGameOver] = useState(false);                              // flag game as over
+  const [attempt, setAttempt] = useState(3);                                    // keep track of attemps
+  const [points, setPoints] = useState(0);                                      // keep track of total points
+  const [time, setTime] = useState(0);                                          // keep track of time spent playing
+  const [lastGuess, setLastGuess] = useState(null);                             // keep track of last guess
+  const [allCountries, setAllCountries] = useState([]);                         // store all countries with flags
+  const [revealAnswer, setRevealAnswer] = useState(null);                       // reveal correct location for 1.5s
+
+
+// --------------------------------------------------------------------------------------------------------------------
+//        LOAD DATA AND SELECT TARGET COUNTRIES FOR THE GAME
+// --------------------------------------------------------------------------------------------------------------------
+useEffect(() => {
+  fetch("/GeoJSON.json")
+    .then(res => res.json())
+    .then(setGeoData)
+    .catch(err => console.error("Failed to load GeoJSON:", err));
+}, []); // <-- [] Runs this effect only once.
 
 
 useEffect(() => {
 async function fetchCountries() {
-    try {
+  try {
     const response = await fetch(`/api/${gameConfig.region}`);
-    if (!response.ok) throw new Error("Fetch failed")
-
+  if (!response.ok) throw new Error("Fetch failed")
     let countries = await response.json();
 
-    // Create new data-object that contains flag img's
-    // Loop over each country
-    countries = countries.map(country => ({
+
+  // --------------------------------------------------------------------------------------------------------------------
+  //        GENERATE COUNTRIES DATA-OBJECTS W/ FLAG IMAGES
+  // --------------------------------------------------------------------------------------------------------------------
+  countries = countries.map(country => ({
     ...country,
     flag: `/flags/${country.code}.png`
-    }));
+  }));
 
-    setAllCountries(countries); // store all countries w/ flags
+  setAllCountries(countries); // store all countries as data-objects, containing flag images.
 
-      // Easy difficulty
-    if (gameConfig.difficulty === "easy") {
-          const shuffled = countries
-          .sort(() => Math.random() - 0.5) // shuffle
-          .slice(0, 10); // pick first 10. index 0-9
-            setTargetCountries(shuffled);
-    } else {
-        // Hard difficulty
-            const shuffled = countries
-          .sort(() => Math.random() - 0.5) // shuffle
-          .slice(0, 30); // pick first 30. index 0-29
-            setTargetCountries(shuffled);
-        }
-    } catch (err) {
-        console.error(err);
+  // Easy difficulty
+  if (gameConfig.difficulty === "easy") {
+    const shuffled = countries
+      .sort(() => Math.random() - 0.5) // shuffle
+      .slice(0, 10); // pick first 10. index 0-9
+      setTargetCountries(shuffled);
+
+  } else {
+  // Hard difficulty
+    const shuffled = countries
+      .sort(() => Math.random() - 0.5) // shuffle
+      .slice(0, 30); // pick first 30. index 0-29
+      setTargetCountries(shuffled);
+    }} catch (err) {
+      console.error(err);
     }
 }
 
-    fetchCountries();
-    // ,[]) makes it so that it only runs once when the compounent mounts
-}, [gameConfig]);
 
-  // Define a zoom in function. 
+// --------------------------------------------------------------------------------------------------------------------
+//        START GAME
+// --------------------------------------------------------------------------------------------------------------------
+
+fetchCountries();
+}, [gameConfig]);                                    // gameConfig contains region, difficulty and mode settings.
+const currentTarget = targetCountries[currentIndex]; // Define current target outside of nextRound, so it runs on mount.
+
+
+// --------------------------------------------------------------------------------------------------------------------
+//        DEFINE MAP ZOOM & MOVEMENT FUNCTIONS
+// --------------------------------------------------------------------------------------------------------------------
 const handleZoomIn = () => {
-    if (position.zoom >= 4) return; // Maximum zoom.
+  if (position.zoom >= 4) return; // Maximum zoom.
     setPosition((pos) => ({ ...pos, zoom: pos.zoom * 1.5 }));
 };
 
-  // Define a zoom out function. 
 const handleZoomOut = () => {
-    if (position.zoom <= 1) return; // Minimum zoom
+  if (position.zoom <= 1) return; // Minimum zoom
     setPosition((pos) => ({ ...pos, zoom: pos.zoom / 1.5 }));
 };
 
-  // Move map position
+// Handle position
 const handleMove = (newPosition) => {
-    setPosition(newPosition);
+  setPosition(newPosition);
 };
 
-
-const handleClickCountry = (name) => {
-    if (gameOver) 
-        return;
-
-  // match "Germany" with "name:Germany"
-  const clickedObject = allCountries.find(c => c.name === name);
-  setClickedCountry(clickedObject)
-
-    const currentTarget = targetCountries[currentIndex];
-    const isCorrect = name === currentTarget.name; // Boolean
-
-// Start next round if there are more rounds
+// --------------------------------------------------------------------------------------------------------------------
+//        NEXT ROUND FUNCTION
+// --------------------------------------------------------------------------------------------------------------------
 function nextRound() {
     if (currentIndex + 1 < targetCountries.length) {
         setCurrentIndex(prev => prev +1);
@@ -108,48 +110,69 @@ function nextRound() {
     } else {
         setGameOver(true);
         setPoints(prev => (prev * 5 / (time / 50 + 1)).toFixed(1))
-        setResult("Game over!")
     }
 }
 
-// Reduce attempts by 1 on click
-setAttempt(attempt - 1)
+// --------------------------------------------------------------------------------------------------------------------
+//        HANDLE CLICK ON MAP COMPONENT
+// --------------------------------------------------------------------------------------------------------------------
+const handleClickCountry = (name) => {
+  if (attempt == 0)                     // Nothing happens if attempts are 0. (Prevents counter going negative)
+    return;
 
-setLastGuess({name, isCorrect})
-playSound(isCorrect);
+  setAttempt(attempt - 1)               // Reduce guess attemps by 1
+  if (gameOver)                         // Nothing happens if gameOver state = true.
+    return;
 
-if (name === currentTarget.name) {
+  // handleClickCountry gets a country name as string.
+  // Match string "Germany" with data-object, where "name:Germany".
+  // Set data-object as clickedCountry, so we can use it's flag.
+  const clickedObject = allCountries.find(c => c.name === name);
+  setClickedCountry(clickedObject)
+
+  const currentTarget = targetCountries[currentIndex];  // Set current target
+  const isCorrect = name === currentTarget.name;        // Check, if the guess was correct
+  setLastGuess({name, isCorrect})                       // Remember previous guess
+  playSound(isCorrect);                                 // Play audio feedback
+
+// --------------------------------------------------------------------------------------------------------------------
+//        GUESS RESULTS
+// --------------------------------------------------------------------------------------------------------------------
+  if (name === currentTarget.name) {
     // Correct result
-    setResult("Correct!")
     setScore(score +1);
     setPoints(prev => prev + (attempt * 60))
     nextRound();
-} else {
-    setResult("Wrong, try again")
-    if (attempt == 1) {
+  } else {
+    // Wrong answer
+    if (attempt == 1 && attempt !== 0 ) {
       setRevealAnswer(currentTarget.name);
         setTimeout(() => {
-            setRevealAnswer(null); // reset highlight
-            setAttempt(3);
-            nextRound();
-          }, 1500); // flash correct answer blue for 1.5 second
-      }
+          setRevealAnswer(null); // reset highlight
+          setAttempt(3);
+          nextRound();
+      }, 1500); // flash country location with blue for 1.5 seconds
+    }
   }
 }
 
-const currentTarget = targetCountries[currentIndex];
 
-
+// --------------------------------------------------------------------------------------------------------------------
+//        TIMER
+// --------------------------------------------------------------------------------------------------------------------
 useEffect(() => {
-    if (gameOver) return;
+  if (gameOver) return;                       // Timer does not run, while game is over.
 
     const interval = setInterval(() => {
-        setTime(prev => prev +1); // Update every second
+      setTime(prev => prev +1);               // Update every second
     }, 1000);
-    return () => clearInterval(interval); // Cleanup function
-}, [gameOver]); // Runs when gameOver state changes
+      return () => clearInterval(interval);   // Cleanup function to prevent react running several intervals at the same time
+}, [gameOver]);                               // Runs when component mounts or gameOver state changes
 
 
+// --------------------------------------------------------------------------------------------------------------------
+//        REACT RENDER
+// --------------------------------------------------------------------------------------------------------------------
 return (
     <div>
       <Controls
@@ -166,7 +189,6 @@ return (
       />
 
       <StatsGrid2
-        result = {result}
         attempt={attempt}
         currentTarget={currentTarget}
         clickedCountry = {clickedCountry}
@@ -181,69 +203,68 @@ return (
       </div>
 
 
-      {/* Starts the map container. */}
-      <ComposableMap
-        // Initial map zoom
-        projectionConfig={{ scale: 150 }}
-        // Define map size
-        style={{ width: "100%", height: "800px" }}
-      >
+{/* --------------------------------------------------------------------------------------------------------------------}
+/*        MAP COMPONENT
+/*  ------------------------------------------------------------------------------------------------------------------*/}
+<ComposableMap
+  projectionConfig={{ scale: 150 }}             // Define map zoom
+  style={{ width: "100%", height: "900px" }}    // Define map container size
+>
 
+<ZoomableGroup
+  center={position.coordinates}
+  zoom={position.zoom}
+  onMoveEnd={handleMove}                        // triggers when user finishes dragging/zooming the map
+>
 
-      <ZoomableGroup
-        // center and zoom come from the state, so moving the map updates the component 
-        center={position.coordinates}
-        zoom={position.zoom}
-        // triggers when user finishes dragging/zooming the map
-        onMoveEnd={handleMove}
-      >
+{/* Load all countries from the GeoJSOn data served from /public */}
+<Geographies geography={geoData}>
+  {({ geographies }) =>
+    geographies.map((geo) => (
+      // Loop over each geo to render it individually with map()
+      <Geography
+        key={geo.rsmKey}
+        geography={geo}
 
+// --------------------------------------------------------------------------------------------------------------------}
+//        STYLES
+//  -------------------------------------------------------------------------------------------------------------------}
 
-      {/* Load all countries from the GeoJSOn URL */}
-      <Geographies geography={geoData}>
-        {({ geographies }) =>
-          geographies.map((geo) => (
-            // Loop over each geo to render it individually with map()
-              <Geography
-                key={geo.rsmKey}
-                geography={geo}
-
-
-                // Trigger handleClickCountry on country click
-                onClick={() => handleClickCountry(geo.properties.name)}
-                style={{
-                    default: {
-                    fill:
-                    revealAnswer === geo.properties.name
-                    ? "#0000FF" // flash blue for correct answer
+        // Trigger handleClickCountry on country click
+        onClick={() => handleClickCountry(geo.properties.name)}
+          style={{
+            default: {
+            fill:
+              revealAnswer === geo.properties.name
+              ? "#0000FF" // flash blue for correct answer
                 : lastGuess?.name === geo.properties.name // Use optional chaining to avoid errors w/ null or undefined
-                ? lastGuess.isCorrect
-                    ? "#00FF00" // green
-                    : "#FF0000" // red
-                    : "#FFFFFF", // white
-                    outline: "none",
-                },
-                    hover: {
-                    fill:
-                lastGuess?.name === geo.properties.name 
-                ? lastGuess.isCorrect
-                    ? "#00FF00"
-                    : "#FF0000"
-                    : "#FFD700", // yellow. Hovering over a country that is not lastGuess appears yellow.
-                    outline: "none",
-                },
-            pressed: {
-            fill: "#FF0000",
-            outline: "none",
-                    },
-                }}
-                />
-              ))
-            }
-          </Geographies>
-        </ZoomableGroup>
-      </ComposableMap>
-      </div>
+              ? lastGuess.isCorrect
+              ? "#00FF00" // green
+                : "#FF0000" // red
+                : "#FFFFFF", // white
+                outline: "none",
+              },
+                hover: {
+                fill:
+              lastGuess?.name === geo.properties.name 
+              ? lastGuess.isCorrect
+              ? "#00FF00"
+                : "#FF0000"
+                : "#FFD700", // yellow. Hovering over a country that is not lastGuess appears yellow.
+                outline: "none",
+              },
+                pressed: {
+                fill: "#FF0000",
+                outline: "none",
+              },
+            }}
+          />
+        ))
+      }
+    </Geographies>
+    </ZoomableGroup>
+    </ComposableMap>
+  </div>
 )};
 
 export default ClickableMap;

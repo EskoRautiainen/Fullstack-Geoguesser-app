@@ -8,7 +8,7 @@ const express = require('express')
 const createConnection = require('./connection')
 
 // Import routes
-const { findAll, findEurope, findAfrica, findAsia, findAmerica} = require('./routes')
+const { findGameData, findEurope, findAfrica, findAsia, findAmerica, } = require('./routes')
 
 // Import SQLite logic
 const { addContinent} = require('./countriesSQLite')
@@ -65,7 +65,7 @@ try {
 // --------------------------------------------------------------------------------------------------------------------
 //        REGISTER ROUTE HANDLERS
 // --------------------------------------------------------------------------------------------------------------------
-  findAll(app, db);
+  findGameData(app, db);
   findEurope(app, db);
   findAfrica(app, db);
   findAsia(app, db);

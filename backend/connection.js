@@ -1,11 +1,14 @@
-// Define connection to database
+// --------------------------------------------------------------------------------------------------------------------
+//        IN MEMORY SQL DATABASE CONNECTION
+// --------------------------------------------------------------------------------------------------------------------
+// This database is non persistant. It resets on restart. Good only for testing.
+
 const sqlite3 = require('sqlite3');
 // open is required to open in memory database
 const { open } = require('sqlite');
 
 async function createConnection() {
 try {
-  // Open an in-memory database
   const db = await open({
     filename: ':memory:',
     driver: sqlite3.Database,

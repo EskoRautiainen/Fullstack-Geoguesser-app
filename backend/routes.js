@@ -1,5 +1,7 @@
-// Query gamedata
-function findAll(app, db) {
+// --------------------------------------------------------------------------------------------------------------------
+//        ROUTERS
+// --------------------------------------------------------------------------------------------------------------------
+function findGameData(app, db) {
 app.get('/api/gamedata', async (req, res) => {
   try {
     const rows = await db.all("SELECT * FROM gamedata");
@@ -10,7 +12,7 @@ app.get('/api/gamedata', async (req, res) => {
 });
 }
 
-// Query data from europe table
+// Europe
 function findEurope(app, db) {
 app.get('/api/europe', async (req, res) => {
   try {
@@ -22,7 +24,7 @@ app.get('/api/europe', async (req, res) => {
 });
 }
 
-// Query data from africa table
+// Africa
 function findAfrica(app, db) {
 app.get('/api/africa', async (req, res) => {
   try {
@@ -34,7 +36,7 @@ app.get('/api/africa', async (req, res) => {
 });
 }
 
-// Query data from asia table
+// Asia
 function findAsia(app, db) {
 app.get('/api/asia', async (req, res) => {
   try {
@@ -46,6 +48,7 @@ app.get('/api/asia', async (req, res) => {
 });
 }
 
+// America
 function findAmerica(app, db) {
 app.get('/api/america', async (req, res) => {
   try {
@@ -58,7 +61,7 @@ app.get('/api/america', async (req, res) => {
 }
 
 module.exports = {
-  findAll,
+  findGameData,
   findEurope,
   findAfrica,
   findAsia,

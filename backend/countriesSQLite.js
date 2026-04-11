@@ -1,4 +1,6 @@
-// Add europe to SQLite database
+// --------------------------------------------------------------------------------------------------------------------
+//        ADD COUNTRIES TO SQL DATABASE
+// --------------------------------------------------------------------------------------------------------------------
 const europeCountries = {
   Finland: "fi",
   France: "fr",
@@ -196,6 +198,10 @@ const countriesByContinent = {
   america: americaCountries
 };
 
+
+// --------------------------------------------------------------------------------------------------------------------
+//        REUSABLE SQL LOGIC
+// --------------------------------------------------------------------------------------------------------------------
 async function addContinent(db, continent) {
   const countries = countriesByContinent[continent];
   
@@ -212,7 +218,6 @@ async function addContinent(db, continent) {
     await db.run(`INSERT INTO ${continent} (name, code) VALUES (?, ?)`, [name, code]);
 }
 }
-
 
 module.exports = {
   addContinent

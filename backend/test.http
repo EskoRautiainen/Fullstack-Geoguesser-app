@@ -1,18 +1,26 @@
+// --------------------------------------------------------------------------------------------------------------------
+//        TEST HTTP REQUESTS
+// --------------------------------------------------------------------------------------------------------------------
+
 ### Home
 GET http://localhost:3000/
 
 ### Get game data
 GET http://localhost:3000/api/gamedata
 
+### Post game data
+POST http://localhost:3000/api/gamedata
+
 ### Get europe data
 GET http://localhost:3000/api/europe
 
-### Get europe data
+### Get africa data
 GET http://localhost:3000/api/africa
 
-### Get europe data
+### Get asia data
 GET http://localhost:3000/api/asia
 
-### Get post game data
-POST http://localhost:3000/api/gamedata
+### Get america data
+GET http://localhost:3000/api/america
+
 

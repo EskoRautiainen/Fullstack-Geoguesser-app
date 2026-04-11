@@ -147,6 +147,19 @@ useEffect(() => {
 
 
 
+// Endgame
+
+function EndGame({ score }) {
+  return (
+    <div className="overlay">
+      <div className="endgame-box">
+        <h2>Game Over</h2>
+        <p>Your score = {score}</p>
+      </div>
+    </div>
+  );
+}
+
 
 
 
@@ -156,6 +169,12 @@ return (
 
     
     <div>
+      {!gameOver && (
+
+      <>
+      
+      </>
+      )}
       
       <Controls
         onZoomIn={handleZoomIn}
@@ -178,7 +197,12 @@ return (
       />
 
         <div className="stats-grid3">
-        <p><b>Guesses remaining: {attempt}</b></p>
+          {!gameOver ? (
+            <p><b>Guesses remaining: {attempt}</b></p>
+          ) : (
+          <p><b>GAME OVER!</b></p>
+          )}
+
         </div>
 
 

@@ -21,7 +21,7 @@ function ClickableMap({ gameConfig }) {
   const [time, setTime] = useState(0);
   const [lastGuess, setLastGuess] = useState(null);
   const [allCountries, setAllCountries] = useState([]); // store all countries with flags. countries variable has scope issues.
-
+  const [revealAnswer, setRevealAnswer] = useState(null); // reveal correct location for 1.5s
 
   // Load GeoJSON from public folder
   useEffect(() => {
@@ -127,10 +127,14 @@ if (name === currentTarget.name) {
 } else {
     setResult("Wrong, try again")
     if (attempt == 1) {
-        setAttempt(3)
-        nextRound();
-        }
-    }
+      setRevealAnswer(currentTarget.name);
+        setTimeout(() => {
+            setRevealAnswer(null); // reset highlight
+            setAttempt(3);
+            nextRound();
+          }, 1500); // flash correct answer blue for 1.5 second
+      }
+  }
 }
 
 const currentTarget = targetCountries[currentIndex];
@@ -146,36 +150,8 @@ useEffect(() => {
 }, [gameOver]); // Runs when gameOver state changes
 
 
-
-// Endgame
-
-function EndGame({ score }) {
-  return (
-    <div className="overlay">
-      <div className="endgame-box">
-        <h2>Game Over</h2>
-        <p>Your score = {score}</p>
-      </div>
-    </div>
-  );
-}
-
-
-
-
-
 return (
-    
-
-    
     <div>
-      {!gameOver && (
-
-      <>
-      
-      </>
-      )}
-      
       <Controls
         onZoomIn={handleZoomIn}
         onZoomOut={handleZoomOut}
@@ -196,15 +172,13 @@ return (
         clickedCountry = {clickedCountry}
       />
 
-        <div className="stats-grid3">
-          {!gameOver ? (
-            <p><b>Guesses remaining: {attempt}</b></p>
-          ) : (
+      <div className="stats-grid3">
+        {!gameOver ? (
+          <p><b>Guesses remaining: {attempt}</b></p>
+        ) : (
           <p><b>GAME OVER!</b></p>
-          )}
-
-        </div>
-
+        )}
+      </div>
 
 
       {/* Starts the map container. */}
@@ -214,6 +188,8 @@ return (
         // Define map size
         style={{ width: "100%", height: "800px" }}
       >
+
+
       <ZoomableGroup
         // center and zoom come from the state, so moving the map updates the component 
         center={position.coordinates}
@@ -221,6 +197,7 @@ return (
         // triggers when user finishes dragging/zooming the map
         onMoveEnd={handleMove}
       >
+
 
       {/* Load all countries from the GeoJSOn URL */}
       <Geographies geography={geoData}>
@@ -230,14 +207,16 @@ return (
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                
-                
+
+
                 // Trigger handleClickCountry on country click
                 onClick={() => handleClickCountry(geo.properties.name)}
                 style={{
                     default: {
                     fill:
-                lastGuess?.name === geo.properties.name // Use optional chaining to avoid errors w/ null or undefined
+                    revealAnswer === geo.properties.name
+                    ? "#0000FF" // flash blue for correct answer
+                : lastGuess?.name === geo.properties.name // Use optional chaining to avoid errors w/ null or undefined
                 ? lastGuess.isCorrect
                     ? "#00FF00" // green
                     : "#FF0000" // red

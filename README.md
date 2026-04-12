@@ -162,12 +162,80 @@ Changes to app not reflecting?
 ```
 
 ## Future improvements
+```text
 - Persistent database
 - Game restart
 - Score history
 - UI improvements
 - Audio feedback
 - Include flags. Allow playing w/ flags only.
+```
+
+# Release 4 - Release candidate
+
+<img width="1351" height="997" alt="image" src="https://github.com/user-attachments/assets/628c0c5e-14fc-4993-a5f6-6fdc341c0168" />
+
+## UI UPDATE
+```text
+- After guessing incorrectly 3 times, highlight target country location with blue for 1.5 seconds.
+- Provide audio feedback on guesses. "tink" "brrr".
+- Display target country and guessed country flags.
+- Remove "result=x". User gets feedback on their clicks trough audio and colour changing on map component.
+- index.html forces darkmode on browser.
+- Improve the position of components.
+- Audio feedback is served from public/sounds.
+```
+
+## FLAG IMG's
+```text
+- Serve flag images to React from public/flags.
+- Countries are stored as keyword pairs in backend: Finland: "fi".
+- We loop trought these keyword pairs, adding the  corresponding flag img and turning them into data-objects.
+- Country flags are visible on the UI for "Click on:x" and "You clicked on:y"
+```
+
+## DOCUMENTATION
+```text
+- Add comprehensive comments troughout the files.
+- Improve syntax.
+- Remove any leftover code from previous half-baked solutions.
+```
+<img width="1215" height="900" alt="image" src="https://github.com/user-attachments/assets/1ffbbbc1-87bd-4825-a0b8-ff2000d2f77a" />
+
+## SQL LOGIC
+```text
+- Make components for creating SQL tables and inserting reusable.
+- SQL is called with "await addContinent(db, "europe");". Simple & clean.
+- Include "America" gamemode
+```
+
+## KNOWN ISSUES
+```text
+- Refreshing the page on "http://localhost:3000/play" gets you "cannot GET /play"
+- Some countries in the game are very small. They are hard to locate, and when they flash blue they're difficult to see.
+- Small countries are hard to click on without a good mouse. They will likely get removed.
+- Countries that don't have ISO-codes don't have their map displayed in the app.
+- Need to figure out what to do with countries that are not internationally recognized as a sovereign states.
+```
+
+## Future improvements
+```text
+- Persistent database
+- Game restart
+- Score history
+- UI improvements
+- Flag only gamemode. UI is there for it, but it does not work yet.
+```
+
+## Consider
+```text
+These will bring up the grading
+- Support for different languages
+- UI designed with bootstrap, or material.ui or some other
+- Authentication
+- TypeScript
+- Incorporates a testing framework for testing RESTful APIs, for example Jest with Supertest or Mocha with Chai-http
+```
 
 
 

@@ -218,7 +218,7 @@ Changes to app not reflecting?
 - Need to figure out what to do with countries that are not internationally recognized as a sovereign states.
 ```
 
-## Future improvements
+## FUTURE IMPROVEMENTS
 ```text
 - Persistent database
 - Game restart
@@ -227,7 +227,7 @@ Changes to app not reflecting?
 - Flag only gamemode. UI is there for it, but it does not work yet.
 ```
 
-## Consider
+## CONSIDER
 ```text
 These will bring up the grading
 - Support for different languages

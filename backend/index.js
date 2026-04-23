@@ -55,10 +55,6 @@ try {
     time INTEGER NOT NULL
   )`);
 
-  // Test inserts
-  await db.run(`INSERT INTO gamedata (points, mode, region, difficulty, time)
-    VALUES (?, ?, ?, ?, ?)`, [1, "Test", "Test", "Test", 1]);
-
   // Add countries to SQLite. App.jsx will use it later.
   await addContinent(db, "europe");
   await addContinent(db, "africa");

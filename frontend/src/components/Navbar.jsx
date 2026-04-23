@@ -12,6 +12,7 @@ function Navbar() {
     <nav className='navBar'>
       <NavLink to="/" style={linkStyle}>Home</NavLink>
       <NavLink to="/play" style={linkStyle}>Play</NavLink>
+      <NavLink to="/scores" style={linkStyle}>Scores</NavLink>
     </nav>
   );
 }

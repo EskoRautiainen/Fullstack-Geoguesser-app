@@ -58,7 +58,7 @@ async function fetchCountries() {
   if (gameConfig.difficulty === "easy") {
     const shuffled = countries
       .sort(() => Math.random() - 0.5) // shuffle
-      .slice(0, 10); // pick first 10. index 0-9
+      .slice(0, 2); // pick first 10. index 0-9
       setTargetCountries(shuffled);
 
   } else {
@@ -109,8 +109,12 @@ function nextRound() {
         setAttempt(3)
     } else {
         setGameOver(true);
-        setPoints(prev => (prev * 5 / (time / 50 + 1)).toFixed(1))
+        const finalPoints = Number(
+          (points * 5 / (time / 50 + 1)).toFixed(1)
+        );
 
+      setPoints(finalPoints);
+      
       // Send game data to backend
       fetch("/api/gamedata", {
         method: "POST",
@@ -118,7 +122,7 @@ function nextRound() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-        points: points,
+        points: finalPoints,
         mode: gameConfig.mode,
         region: gameConfig.region,
         difficulty: gameConfig.difficulty,

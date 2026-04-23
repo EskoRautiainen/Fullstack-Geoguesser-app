@@ -12,7 +12,7 @@ import "./../App.css";
 function ClickableMap({ gameConfig }) { 
   const [geoData, setGeoData] = useState(null);                                 // load geodata from /public 
   const [clickedCountry, setClickedCountry] = useState(null);                   // match clicked country name w/ it's data object
-  const [position, setPosition] = useState({ coordinates: [0, 30], zoom: 2 });  // set starting position and zoom level
+  const [position, setPosition] = useState({ coordinates: [30, 30], zoom: 3 });  // set starting position and zoom level
   const [targetCountries, setTargetCountries] = useState([]);                   // random countries
   const [currentIndex, setCurrentIndex] = useState(0);                          // current country to guess
   const [score, setScore] = useState(0);                                        // track score x/10

@@ -192,6 +192,7 @@ return (
         attempt={attempt}
         currentTarget={currentTarget}
         clickedCountry = {clickedCountry}
+        mode={gameConfig.mode}
       />
 
       <div className="stats-grid3">

@@ -23,6 +23,7 @@ export function StatsGrid1({
 export function StatsGrid2({
     currentTarget,
     clickedCountry,
+    mode
 }) {
     return (
     <div className="stats-grid2">
@@ -30,6 +31,7 @@ export function StatsGrid2({
             Click on: {" "}
             {currentTarget && (
             <b>
+            {mode === "nameflag" | mode === "flag" && (
             <img
                 src={currentTarget.flag}
                 alt={`${currentTarget.name} flag`}
@@ -37,7 +39,11 @@ export function StatsGrid2({
                 height={25}
                 style={{ margin: "0 5px" }}
             />
-                {currentTarget.name}
+            )}
+                {mode === "nameflag"
+                    ? currentTarget.name
+                    : ""
+                }
             </b>
         )}
     </div>
@@ -45,6 +51,7 @@ export function StatsGrid2({
             You clicked: {" "}
             {clickedCountry ? (
             <b>
+            {mode === "nameflag" | mode === "flag" && (
             <img
                 src={clickedCountry.flag}
                 alt={`${clickedCountry.name} flag`}
@@ -52,7 +59,11 @@ export function StatsGrid2({
                 height={25}
                 style={{ margin: "0 5px" }}
             />
-                {clickedCountry.name}
+            )}
+                {mode === "nameflag"
+                    ? clickedCountry.name
+                    : ""
+                }
             </b>
         ) :  (
             <b>-</b>

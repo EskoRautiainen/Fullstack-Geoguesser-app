@@ -90,11 +90,11 @@ return (
           <input
             type="radio"
             name="mode"
-            value="both"
-            checked={mode === "both"}
+            value="nameflag"
+            checked={mode === "nameflag"}
             onChange={(e) => setMode(e.target.value)}
           />
-          Both
+          Name and flag
         </label>
 
         <label>
@@ -106,17 +106,6 @@ return (
             onChange={(e) => setMode(e.target.value)}
           />
           Flag only
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            name="mode"
-            value="name"
-            checked={mode === "name"}
-            onChange={(e) => setMode(e.target.value)}
-          />
-          Name only
         </label>
       </div>
 

@@ -20,7 +20,4 @@ GET http://localhost:3000/api/africa
 ### Get asia data
 GET http://localhost:3000/api/asia
 
-### Get america data
-GET http://localhost:3000/api/america
-
 

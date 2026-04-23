@@ -8,7 +8,7 @@ const express = require('express')
 const createConnection = require('./connection')
 
 // Import routes
-const { findGameData, findEurope, findAfrica, findAsia, findAmerica, } = require('./routes')
+const { findGameData, findEurope, findAfrica, findAsia} = require('./routes')
 
 // Import SQLite logic
 const { addContinent} = require('./countriesSQLite')
@@ -59,7 +59,6 @@ try {
   await addContinent(db, "europe");
   await addContinent(db, "africa");
   await addContinent(db, "asia");
-  await addContinent(db, "america");
 
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -69,7 +68,6 @@ try {
   findEurope(app, db);
   findAfrica(app, db);
   findAsia(app, db);
-  findAmerica(app, db);
 
 // Listen to port
 app.listen(port, () => {

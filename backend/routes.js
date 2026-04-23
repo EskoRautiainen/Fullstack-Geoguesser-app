@@ -48,22 +48,9 @@ app.get('/api/asia', async (req, res) => {
 });
 }
 
-// America
-function findAmerica(app, db) {
-app.get('/api/america', async (req, res) => {
-  try {
-    const rows = await db.all("SELECT * FROM america");
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-}
-
 module.exports = {
   findGameData,
   findEurope,
   findAfrica,
   findAsia,
-  findAmerica
 };

@@ -152,53 +152,6 @@ const africaCountries = {
   Zimbabwe: "zw"
 };
 
-const americaCountries = {
-  "United States": "us",
-  Canada: "ca",
-  Mexico: "mx",
-  Guatemala: "gt",
-  Belize: "bz",
-  Honduras: "hn",
-  El_Salvador: "sv",
-  Nicaragua: "ni",
-  Costa_Rica: "cr",
-  Panama: "pa",
-  "Bahamas": "bs",
-  Cuba: "cu",
-  Jamaica: "jm",
-  Haiti: "ht",
-  "Dominican Republic": "do",
-  Colombia: "co",
-  Venezuela: "ve",
-  Ecuador: "ec",
-  Peru: "pe",
-  Brazil: "br",
-  Bolivia: "bo",
-  Paraguay: "py",
-  Chile: "cl",
-  Argentina: "ar",
-  Uruguay: "uy",
-  Guyana: "gy",
-  Suriname: "sr",
-  "French Guiana": "gf",
-  "Saint Kitts and Nevis": "kn",
-  "Antigua and Barbuda": "ag",
-  Dominica: "dm",
-  "Saint Lucia": "lc",
-  "Saint Vincent and the Grenadines": "vc",
-  Grenada: "gd",
-  "Barbados": "bb",
-  "Trinidad and Tobago": "tt"
-};
-
-const countriesByContinent = {
-  europe: europeCountries,
-  africa: africaCountries,
-  asia: asiaCountries,
-  america: americaCountries
-};
-
-
 // --------------------------------------------------------------------------------------------------------------------
 //        REUSABLE SQL LOGIC
 // --------------------------------------------------------------------------------------------------------------------

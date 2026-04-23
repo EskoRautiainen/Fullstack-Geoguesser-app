@@ -6,15 +6,16 @@
 const sqlite3 = require('sqlite3');
 // open is required to open in memory database
 const { open } = require('sqlite');
+const path = require("path");
 
 async function createConnection() {
 try {
   const db = await open({
-    filename: ':memory:',
+    filename: path.join(__dirname, 'database.db'),
     driver: sqlite3.Database,
   });
 
-  console.log('Connected to SQLite in-memory database!');
+  console.log('Connected to SQLite database!');
   return db;
 } catch (err) {
     console.error('Connection failed:', err.message);

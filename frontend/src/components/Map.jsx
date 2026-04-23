@@ -151,7 +151,7 @@ const handleClickCountry = (name) => {
           setRevealAnswer(null); // reset highlight
           setAttempt(3);
           nextRound();
-      }, 1500); // flash country location with blue for 1.5 seconds
+      }, 2500); // flash country location with blue for 2.5 seconds
     }
   }
 }

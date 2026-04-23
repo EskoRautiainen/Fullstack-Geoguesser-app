@@ -110,7 +110,22 @@ function nextRound() {
     } else {
         setGameOver(true);
         setPoints(prev => (prev * 5 / (time / 50 + 1)).toFixed(1))
-    }
+
+      // Send game data to backend
+      fetch("/api/gamedata", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+        points: points,
+        mode: gameConfig.mode,
+        region: gameConfig.region,
+        difficulty: gameConfig.difficulty,
+        time: time
+      })
+    }).catch(err => console.error("Failed to save game:", err));
+  }
 }
 
 // --------------------------------------------------------------------------------------------------------------------

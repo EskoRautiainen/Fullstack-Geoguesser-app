@@ -2,12 +2,28 @@
 //        ROUTERS
 // --------------------------------------------------------------------------------------------------------------------
 
-// Game results
+// Fetch game results
 function findGameData(app, db) {
 app.get('/api/gamedata', async (req, res) => {
   try {
     const rows = await db.all("SELECT * FROM gamedata");
     res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+}
+
+function postGameData(app, db) {
+app.post("/api/gamedata", async (req, res) => {
+  try {
+    const { points, mode, region, difficulty, time } = req.body;
+
+    await db.run(
+      `INSERT INTO gamedata (points, mode, region, difficulty, time)
+      VALUES (?, ?, ?, ?, ?)`,
+      [points, mode, region, difficulty, time]
+    );
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -52,7 +68,8 @@ app.get('/api/asia', async (req, res) => {
 
 module.exports = {
   findGameData,
+  postGameData,
   findEurope,
   findAfrica,
-  findAsia,
+  findAsia
 };

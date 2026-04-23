@@ -8,7 +8,7 @@ const express = require('express')
 const createConnection = require('./connection')
 
 // Import routes
-const { findGameData, findEurope, findAfrica, findAsia} = require('./routes')
+const { findGameData, postGameData, findEurope, findAfrica, findAsia} = require('./routes')
 
 // Import SQLite logic
 const { addContinent} = require('./countriesSQLite')
@@ -22,6 +22,8 @@ const port = process.env.PORT || 3000;
 
 // Create an Express app
 const app = express()
+
+app.use(express.json());
 
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -66,6 +68,7 @@ try {
 //        REGISTER ROUTE HANDLERS
 // --------------------------------------------------------------------------------------------------------------------
   findGameData(app, db);
+  postGameData(app, db);
   findEurope(app, db);
   findAfrica(app, db);
   findAsia(app, db);

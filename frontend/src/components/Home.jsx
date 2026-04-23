@@ -6,7 +6,7 @@ function Home({ setGameConfig }) {
 
   const [region, setRegion] = useState("europe");
   const [difficulty, setDifficulty] = useState("easy");
-  const [mode, setMode] = useState("both");
+  const [mode, setMode] = useState("nameflag");
 
   // Start game function
   const startGame = () => {

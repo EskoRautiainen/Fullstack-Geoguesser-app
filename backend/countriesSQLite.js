@@ -152,6 +152,12 @@ const africaCountries = {
   Zimbabwe: "zw"
 };
 
+const countriesByContinent = {
+  europe: europeCountries,
+  asia: asiaCountries,
+  africa: africaCountries
+};
+
 // --------------------------------------------------------------------------------------------------------------------
 //        REUSABLE SQL LOGIC
 // --------------------------------------------------------------------------------------------------------------------

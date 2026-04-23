@@ -44,16 +44,17 @@ db = await createConnection();
 try {
   // Create gamedata table
   await db.exec(`CREATE TABLE IF NOT EXISTS gamedata (
-    gameId INTEGER PRIMARY KEY,
-    currentRound INTEGER NOT NULL,
-    roundAmount INTEGER NOT NULL,
-    roundCountries TEXT NOT NULL,
-    totalScore INTEGER DEFAULT 0
+    gameId INTEGER PRIMARY KEY AUTOINCREMENT,
+    points INTEGER NOT NULL,
+    region TEXT NOT NULL,
+    difficulty TEXT NOT NULL,
+    mode TEXT NOT NULL,
+    time INTEGER NOT NULL
   )`);
 
   // Test inserts
-  await db.run(`INSERT INTO gamedata (gameId, currentRound, roundAmount, roundCountries, totalScore)
-    VALUES (?, ?, ?, ?, ?)`, [1, 2, 3, JSON.stringify(["Finland","Sweden","Norway"]), 15]);
+  await db.run(`INSERT INTO gamedata (points, mode, region, difficulty, time)
+    VALUES (?, ?, ?, ?, ?)`, [1, "Test", "Test", "Test", 1]);
 
   // Add countries to SQLite. App.jsx will use it later.
   await addContinent(db, "europe");

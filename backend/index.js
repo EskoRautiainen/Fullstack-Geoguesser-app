@@ -23,6 +23,7 @@ const port = process.env.PORT || 3000;
 // Create an Express app
 const app = express()
 
+// Parse json requests
 app.use(express.json());
 
 // Serve static frontend files

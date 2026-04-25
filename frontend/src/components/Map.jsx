@@ -139,7 +139,8 @@ const handleClickCountry = (name) => {
   if (attempt == 0)                     // Nothing happens if attempts are 0. (Prevents counter going negative)
     return;
 
-  setAttempt(attempt - 1)               // Reduce guess attemps by 1
+  const newAttempt = attempt - 1;      // Reduce guess attemps by 1
+  setAttempt(newAttempt);
   if (gameOver)                         // Nothing happens if gameOver state = true.
     return;
 
@@ -159,8 +160,8 @@ const handleClickCountry = (name) => {
 // --------------------------------------------------------------------------------------------------------------------
   if (name === currentTarget.name) {
     // Correct result
-    setScore(score +1);
-    setPoints(prev => prev + (attempt * 60))
+    setScore(prev => prev +1);
+    setPoints(prev => prev + (newAttempt * 60))
     nextRound();
   } else {
     // Wrong answer

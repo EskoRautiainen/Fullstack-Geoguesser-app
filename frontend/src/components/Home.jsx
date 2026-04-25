@@ -1,6 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+// MUI imports
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+
 function Home({ setGameConfig }) {
   const navigate = useNavigate();
 
@@ -15,102 +26,60 @@ function Home({ setGameConfig }) {
 };
 
 return (
-    <div className="mainMenu">
-      <h1>Select Game</h1>
+    <Container>
+      <Box sx={{ bgcolor: "gray", mt: 2 }}>
+      <Typography variant="h4" sx={{ py: 4 }}>
+        CountryGuesser
+      </Typography>
 
       {/* REGION */}
-      <div>
-        <h2>Region</h2>
-        <label>
-          <input
-            type="radio"
-            name="region"
-            value="europe"
-            checked={region === "europe"}
+      <FormControl component="fieldset">
+        <FormLabel> Region </FormLabel>
+          <RadioGroup
+            value={region}
             onChange={(e) => setRegion(e.target.value)}
-          />
-          Europe
-        </label>
+            >
+            
+            <FormControlLabel value="europe" control={<Radio />} label="Europe" />
+            <FormControlLabel value="africa" control={<Radio />} label="Africa" />
+            <FormControlLabel value="asia" control={<Radio />} label="Asia" />
+          </RadioGroup>
+      </FormControl>
 
-        <label>
-          <input
-            type="radio"
-            name="region"
-            value="africa"
-            checked={region === "africa"}
-            onChange={(e) => setRegion(e.target.value)}
-          />
-          Africa
-        </label>
+      {/* Difficulty */}
+      <FormControl component="fieldset">
+        <FormLabel> Difficulty </FormLabel>
+          <RadioGroup
+            value={difficulty}
+            onChange={(e) => setDifficulty(e.target.value)}
+            >
+            
+            <FormControlLabel value="easy" control={<Radio />} label="Easy" />
+            <FormControlLabel value="hard" control={<Radio />} label="Hard" />
+          </RadioGroup>
+      </FormControl>
 
-          <label>
-          <input
-            type="radio"
-            name="region"
-            value="asia"
-            checked={region === "asia"}
-            onChange={(e) => setRegion(e.target.value)}
-          />
-          Asia
-        </label>
-      </div>
-
+      {/* Mode */}
+      <FormControl component="fieldset">
+        <FormLabel> Mode </FormLabel>
+          <RadioGroup
+            value={mode}
+            onChange={(e) => setMode(e.target.value)}
+            >
+            
+            <FormControlLabel value="nameflag" control={<Radio />} label="Name and flag" />
+            <FormControlLabel value="flag" control={<Radio />} label="Flag only" />
+          </RadioGroup>
+      </FormControl>
+      </Box>
       
-
-      {/* DIFFICULTY */}
-      <div>
-        <h2>Difficulty</h2>
-        <label>
-          <input
-            type="radio"
-            name="difficulty"
-            value="easy"
-            checked={difficulty === "easy"}
-            onChange={(e) => setDifficulty(e.target.value)}
-          />
-          Easy
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            name="difficulty"
-            value="hard"
-            checked={difficulty === "hard"}
-            onChange={(e) => setDifficulty(e.target.value)}
-          />
-          Hard
-        </label>
-      </div>
-
-      {/* MODE */}
-      <div>
-        <h2>Mode</h2>
-        <label>
-          <input
-            type="radio"
-            name="mode"
-            value="nameflag"
-            checked={mode === "nameflag"}
-            onChange={(e) => setMode(e.target.value)}
-          />
-          Name and flag
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            name="mode"
-            value="flag"
-            checked={mode === "flag"}
-            onChange={(e) => setMode(e.target.value)}
-          />
-          Flag only
-        </label>
-      </div>
-
-      <button onClick={startGame}>Start</button>
-    </div>
+      <Box sx={{ bgcolor: "gray", p:2 }}>
+      <Button variant="contained" onClick={startGame} sx={{ bgcolor: "#ffff00", color: "black"}}>
+        Start
+      </Button>
+      </Box>
+    </Container>
+    
   );
 }
 

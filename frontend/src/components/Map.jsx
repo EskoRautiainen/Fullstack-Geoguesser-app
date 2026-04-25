@@ -103,17 +103,17 @@ const handleMove = (newPosition) => {
 // --------------------------------------------------------------------------------------------------------------------
 //        NEXT ROUND FUNCTION
 // --------------------------------------------------------------------------------------------------------------------
-function nextRound() {
+function nextRound(newPoints) {
     if (currentIndex + 1 < targetCountries.length) {
         setCurrentIndex(prev => prev +1);
         setAttempt(3)
     } else {
         setGameOver(true);
         const finalPoints = Number(
-          (points * 5 / (time / 50 + 1)).toFixed(1)
+          (newPoints * 5 / (time / 50 + 1)).toFixed(1)
         );
-
       setPoints(finalPoints);
+      
       
       // Send game data to backend
       fetch("/api/gamedata", {
@@ -139,7 +139,7 @@ const handleClickCountry = (name) => {
   if (attempt == 0)                     // Nothing happens if attempts are 0. (Prevents counter going negative)
     return;
 
-  const newAttempt = attempt - 1;      // Reduce guess attemps by 1
+  let newAttempt = attempt - 1;       // Reduce guess attemps by 1
   setAttempt(newAttempt);
   if (gameOver)                         // Nothing happens if gameOver state = true.
     return;
@@ -161,8 +161,11 @@ const handleClickCountry = (name) => {
   if (name === currentTarget.name) {
     // Correct result
     setScore(prev => prev +1);
-    setPoints(prev => prev + (newAttempt * 60))
-    nextRound();
+    setPoints(prev => { const updated = prev + (newAttempt + 1) * 60
+    nextRound(updated);
+    return updated
+  })
+
   } else {
     // Wrong answer
     if (attempt == 1 && attempt !== 0 ) {

@@ -11,6 +11,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import theme from "./Theme";
+import { ThemeProvider } from "@mui/material/styles";
 
 function Home({ setGameConfig }) {
   const navigate = useNavigate();
@@ -26,15 +28,18 @@ function Home({ setGameConfig }) {
 };
 
 return (
+    <ThemeProvider theme={theme}>
     <Container>
-      <Box sx={{ bgcolor: "gray", mt: 2 }}>
-      <Typography variant="h4" sx={{ py: 4 }}>
+      <Box sx={{ bgcolor: "gray", mt: 2}}>
+      <Typography variant="h4" sx={{ py: 4}}>
         CountryGuesser
       </Typography>
 
       {/* REGION */}
       <FormControl component="fieldset">
-        <FormLabel> Region </FormLabel>
+        <FormLabel
+        sx={{color: "black"}}
+        > Region </FormLabel>
           <RadioGroup
             value={region}
             onChange={(e) => setRegion(e.target.value)}
@@ -48,7 +53,9 @@ return (
 
       {/* Difficulty */}
       <FormControl component="fieldset">
-        <FormLabel> Difficulty </FormLabel>
+        <FormLabel
+        sx={{color: "black"}}
+        > Difficulty </FormLabel>
           <RadioGroup
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
@@ -61,7 +68,9 @@ return (
 
       {/* Mode */}
       <FormControl component="fieldset">
-        <FormLabel> Mode </FormLabel>
+        <FormLabel
+        sx={{color: "black", }}
+        > Mode </FormLabel>
           <RadioGroup
             value={mode}
             onChange={(e) => setMode(e.target.value)}
@@ -79,7 +88,7 @@ return (
       </Button>
       </Box>
     </Container>
-    
+    </ThemeProvider>
   );
 }
 

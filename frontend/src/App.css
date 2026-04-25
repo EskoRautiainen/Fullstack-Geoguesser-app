@@ -46,3 +46,6 @@ h2 {
   color: rgba(233, 233, 233, 0.972);
 }
 
+.MuiFormLabel-root.Mui-focused {
+  color: #b53f3f;
+}

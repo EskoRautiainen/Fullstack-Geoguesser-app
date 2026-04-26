@@ -163,13 +163,43 @@ Rapidly refreshing the map may temporary freeze the app <br>
 "@mui/material": "^9.0.0"
 ```
 
-## How data moves around?
+## Dockerized
+<img width="738" height="512" alt="image" src="https://github.com/user-attachments/assets/5ca1ab22-da90-47c1-9d8c-c795c02f1974" />
+<img width="1283" height="469" alt="image" src="https://github.com/user-attachments/assets/7d705c5f-0b9e-4eff-95fd-b0310c93224b" />
 
-Load target countries:
-<img width="587" height="175" alt="image" src="https://github.com/user-attachments/assets/7817caf0-b085-4a60-9453-21956513033f" />
+Multi-stage build (frontend + backend) <br>
+Serves built frontend via Express <br>
 
-Data objects:
-<img width="879" height="645" alt="image" src="https://github.com/user-attachments/assets/6315f5c1-ac98-44a9-9029-4247e9a54072" />
+
+## What happens at npm start?
+"scripts": { <br>
+    "start": "concurrently \"npm run start-frontend\" \"npm run start-backend\"", <br>
+    "start-frontend": "npm run dev --workspace=frontend", <br>
+    "start-backend": "npm start --workspace=backend" <br>
+
+concurrently starts two processes, "npm run start-backend" and "npm run start-frontend" <br>
+
+### "npm run start-frontend"
+Starts Vite dev server on port 5173 <br>
+
+### "npm run start-backend"
+"npm run start-backend" looks at backend/package.json and finds:
+"scripts": {"start": "node index.js"}<br>
+index.js runs and sets up express server <br>
+createConnection is imported from connection.js and this creates the persistant database <br>
+gamedata table is created and countries keyword pairs "Finland: fi" are inserted into SQL database <br>
+Route handlers are registered <br>
+Server starts and listens to port .env port or port 3000 <br>
+
+
+## Code snippets
+Transform country keyword pairs into data-objects, which include flag img. <br>
+Images are served from /public. <br>
+<img width="870" height="638" alt="image" src="https://github.com/user-attachments/assets/d7cc3e75-17c7-45b6-8cbb-c7394422ef66" />
+
+
+
+
 
 
 

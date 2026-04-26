@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 import { StatsGrid1, StatsGrid2 } from "./Stats";
 import Controls from "./Controls";
@@ -25,8 +25,7 @@ function ClickableMap({ gameConfig }) {
   const [lastGuess, setLastGuess] = useState(null);                             // keep track of last guess
   const [allCountries, setAllCountries] = useState([]);                         // store all countries with flags
   const [revealAnswer, setRevealAnswer] = useState(null);                       // reveal correct location for 1.5s
-
-
+  const hasSaved = useRef(false);
 // --------------------------------------------------------------------------------------------------------------------
 //        LOAD DATA AND SELECT TARGET COUNTRIES FOR THE GAME
 // --------------------------------------------------------------------------------------------------------------------
@@ -116,7 +115,10 @@ function nextRound(newPoints) {
         );
       setPoints(finalPoints);
       
-      
+      // Protect against double POST
+      if (hasSaved.current) return;
+      hasSaved.current = true;
+
       // Send game data to backend
       fetch("/api/gamedata", {
         method: "POST",

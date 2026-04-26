@@ -15,7 +15,8 @@
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.0",
     "react-router-dom": "^7.14.0",
-    "react-simple-maps": "^3.0.0"
+    "react-simple-maps": "^3.0.0",
+    "@mui/material": "^9.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",

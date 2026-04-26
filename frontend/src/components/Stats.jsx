@@ -1,3 +1,7 @@
+// --------------------------------------------------------------------------------------------------------------------}
+//        DISPLAY FLAGS AND COUNTRY NAMES IN GAME
+//  -------------------------------------------------------------------------------------------------------------------}
+
 // Receieve props from Map.jsx
 export function StatsGrid1({
     points,
@@ -42,7 +46,7 @@ export function StatsGrid2({
             )}
                 {mode === "nameflag"
                     ? currentTarget.name
-                    : ""
+                    : "" // Show empty string if mode is not "nameflag"
                 }
             </b>
         )}
@@ -66,7 +70,7 @@ export function StatsGrid2({
                 }
             </b>
         ) :  (
-            <b>-</b>
+            <b>-</b> // Display "-" if no country has been clicked
         )}
     </div>
     </div>

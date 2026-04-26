@@ -238,33 +238,69 @@ These will bring up the grading
 ```
 
 # Fullstack CountryGuesser
-This project is a fullstack geography game built with Node.js and React, where users guess countries on an interactive map. Project uses monorepo setup, REST API powered by Express and persistant SQL-database.
+This project is a fullstack geography game built with **Node.js** and **React**, where users guess countries on an interactive map, earning points for accuracy and speed.
+Project uses **monorepo structure**, **REST API** backend powered by **Express** and persistant **SQL-database**.
 
 <img width="938" height="986" alt="image" src="https://github.com/user-attachments/assets/78d28209-9cee-4623-aa80-81bcfd688dbc" />
 
 ## Summary
 
-CountryGuesser is a tool for learning countries and flags.
+CountryGuesser is an educational game for learning countries and flags on an interactive map.
 
-User chooses Region, Difficulty and Gamemode and enters their Username.
+### Players
+Player chooses Region
+Player chooses Difficulty
+Player chooses Gamemode
+Player enter Username.
 
-User gets 3 guesses on each round and gets 60 points for each remaining guess, earning 60/120/180 points per round.
+### Final Score Formula
+Player gets 3 guesses on each round and gets 60 points for each remaining guess, earning 60/120/180 points per round.
+
 When game ends, total points are calculated with the formula:
-
 const finalPoints = Number((newPoints * 5 / (time / 50 + 1)).toFixed(1)
 
-Results are automatically sent to backend, from which they are served to /scores page.
 
-Scorepage splits the two modes and sorts scores in descending order.
+### Results System
+Results are automatically sent to the backend when the game ends.
+Scores are stored in a SQLite database
+/scores page fetches and displays results
+Scores are grouped by gamemode
+Scores are sorted in descending order
+/scores displays points, username, region and difficulty.
 
 ## Homepage
 
 <img width="539" height="555" alt="image" src="https://github.com/user-attachments/assets/0dae6a54-2526-4185-ba3e-2033fb555650" />
 
+### Features
+Select Region (Europe/Africa/Asia)
+Select Difficulty (Easy/Hard)
+Select Gamemode (Name + Flag / Flag only)
+Enter Username
+Start button is disabled, until username is provided.
 
-RadioButtons have custom hover color
+### UI
+Custom styled RadioButtons
+Material UI components
+Clean dark themed layout
 
-Game can't be started if user does not enter an username.
+## Game screen
+### Features:
+Interactive world map
+Zoom and pan controls
+Country clicking system
+Real-time feedback:
+  Correct -> Green
+  Wrong -> Red
+  Reveal answer after failed attempts -> Blue
+
+### Displays:
+Target country
+Clicked country
+Score
+Time
+Remaining attempts
+Country flag is served from /public if user plays "Name + Flag" mode.
 
 
 ## Scoreboard
@@ -272,9 +308,23 @@ Game can't be started if user does not enter an username.
 <img width="1061" height="993" alt="image" src="https://github.com/user-attachments/assets/aebee42a-b61e-4542-a2c2-b58a0fb498f4" />
 
 
-Scores are automatically sent to backend when game ends.
+Features:
+Display all past games
+Split game modes to their own sections
+Sorted by highest score
 
-Scores are separated on gamemode and sorted by points.
+Shows:
+  Points
+  Username
+  Region
+  Difficulty
+
+  
+## Backend
+
+
+
+## Frontend
 
 
 

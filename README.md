@@ -4,6 +4,9 @@ Project uses **monorepo structure**, **REST API** backend powered by **Express**
 
 <img width="938" height="986" alt="image" src="https://github.com/user-attachments/assets/78d28209-9cee-4623-aa80-81bcfd688dbc" />
 
+## Screencast
+https://www.youtube.com/watch?v=hbnEBjjn8ZU
+
 ## How to run?
 ```bash
 npm install npm start

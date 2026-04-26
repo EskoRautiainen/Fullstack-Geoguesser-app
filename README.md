@@ -1,241 +1,178 @@
-# Release 1
-## Fullstack Node.js + React App
-### Backend (Node.js + Express):
-```text
-- Runs a server on port 3000
-- Uses an in-memory SQLite database
-- Stores simple location data (name, lat, lng)
-```
-### Frontend (React):
-```text
-- Fetches data from /api/locations http://localhost:5173/api/locations/2
-- Displays locations in a list
-- Displays interactive map in http://localhost:5173/
-```
-### Provides API endpoints:
-```text
-- GET /api/locations → all locations
-- GET /api/locations/:id → single location
-```
-### Dockerized:
-```text
-Multi-stage build (frontend + backend)
-Serves built frontend via Express
-```
+# Fullstack CountryGuesser
+This project is a fullstack geography game built with **Node.js** and **React**, where users guess countries on an interactive map, earning points for accuracy and speed. <br>
+Project uses **monorepo structure**, **REST API** backend powered by **Express** and persistant **SQL-database**.
 
+<img width="938" height="986" alt="image" src="https://github.com/user-attachments/assets/78d28209-9cee-4623-aa80-81bcfd688dbc" />
 
-# Release 2
-## Fullstack-geoguesser-app
-This project is a fullstack geography game built with Node.js and React, where users guess countries on an interactive map.
-
-<img width="1350" height="1098" alt="image" src="https://github.com/user-attachments/assets/3dec42e0-f8da-4b00-a5dd-2bf71da78e05" />
-
-
-## Features
-
-- Interactive map using React
-- Random country guessing game
-- REST API powered by Express
-- In-memory SQLite database
-- Monorepo setup (frontend + backend)
-- Docker support
-
-
-## Project structure
-```text
-root/
-├── frontend/      # React app
-├── backend/       # Express + SQLite API
-├── package.json   # workspace config
-```
-
-## Setup & run
-
-Install dependancies
+## How to run?
 ```bash
-npm install
+npm install npm start
 ```
 
-Start from root
-```bash
-npm start
+## Summary
+
+CountryGuesser is an educational game for learning countries and flags on an interactive map. <br>
+
+### Players
+Player chooses Region <br>
+Player chooses Difficulty <br>
+Player chooses Gamemode <br>
+Player enter Username. <br>
+
+### Final Score Formula
+Player gets 3 guesses on each round and gets 60 points for each remaining guess, earning 60/120/180 points per round. <
+
+When game ends, total points are calculated with the formula: <br>
+const finalPoints = Number((newPoints * 5 / (time / 50 + 1)).toFixed(1)
+
+
+### Results System
+Results are automatically sent to the backend when the game ends. <br>
+Scores are stored in a SQLite database <br>
+/scores page fetches and displays results <br>
+Scores are grouped by gamemode  <br>
+Scores are sorted in descending order <br>
+/scores displays points, username, region and difficulty. <br>
+
+## Homepage
+
+<img width="539" height="555" alt="image" src="https://github.com/user-attachments/assets/0dae6a54-2526-4185-ba3e-2033fb555650" />
+
+### Features
+Select Region (Europe/Africa/Asia) <br>
+Select Difficulty (Easy/Hard) <br>
+Select Gamemode (Name + Flag / Flag only) <br>
+Enter Username <br>
+Start button is disabled, until username is provided. <br>
+startGame() updates gameConfig, which is passed into Map.jsx (Game screen) as a parameter. <br>
+
+### UI
+Custom styled RadioButtons <br>
+**Material UI** components <br>
+Clean dark themed layout <br>
+Play audio effect on correct/wrong guesses <br>
+Use react-router to navigate between (/ , /play and /scores) <br>
+
+## Game screen
+### Features:
+Interactive world map <br>
+Zoom and pan controls <br>
+Uses 12 React hooks to alter the game state and pass information to the player <br>
+Country clicking system <br>
+Real-time feedback: <br>
+  Correct -> Green <br>
+  Wrong -> Red <br>
+  Reveal answer after failed attempts -> Blue <br>
+
+### Displays:
+Target country <br>
+Clicked country <br>
+Score <br>
+Time <br>
+Remaining attempts <br>
+Country flag is served from /public if user plays "Name + Flag" mode. <br>
+Suggest "Play again?" when game ends. <br>
+
+
+## Scoreboard
+
+<img width="1061" height="993" alt="image" src="https://github.com/user-attachments/assets/aebee42a-b61e-4542-a2c2-b58a0fb498f4" />
+
+
+### Features: <br>
+Display all past games <br>
+Split game modes to their own sections <br>
+Sorted by highest score <br>
+
+### Shows:
+  Points <br>
+  Username <br>
+  Region <br>
+  Difficulty <br>
+
+  
+## Backend
+### Built with:
+Node.js <br>
+Express <br>
+SQLite <br>
+
+### Responsabilities
+Store game results <br>
+Serves country data per region <br>
+Handles REST API requests <br>
+Use prepared statement to prevent SQL-injections <br>
+
+### API Endpoints: 
+
+```text
+GET  /api/gamedata       → get all scores
+POST /api/gamedata       → save game result
+
+GET  /api/europe         → get European countries
+GET  /api/asia           → get Asian countries
+GET  /api/africa         → get African countries
 ```
 
+## Frontend
+### Built with:
+React <br>
+React Router <br>
+Material UI <br>
+React Simple Maps <br>
 
-## Docker
+### Responsabilities 
+Game UI rendering <br>
+Map interactions <br>
+State management (game config, score, timer) <br>
+Fetching backend data <br>
 
-Dockerize
-```bash
-docker build -t fullstack-geoguesser .
-docker run -p 3000:3000 fullstack-geoguesser
+## Known issues
+Small countries are hard to click <br>
+Rapidly refreshing the map may temporary freeze the app <br>
+
+## Versions
+### Root
+```text
+"@emotion/react": "^11.14.0",
+"@emotion/styled": "^11.14.1",
+"@mui/material": "^9.0.0",
+"leaflet": "^1.9.4",
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"react-leaflet": "^4.2.0",
+"react-router-dom": "^7.14.0",
+"react-simple-maps": "^3.0.0"
 ```
-
-## API endpoints
-
-GET api/gamedata
-- returns GET request for gamedata
-
-
-## How it works?
-
-```bash npm start``` starts a monorepo setup, which runs frontend and backend at the same time.
-```bash npm run dev --workspace=frontend``` runs a dev script inside the frontend workspace.
-```bash npm start --workspace=backend``` runs the start script inside the backend workspace
 
 ### Backend
 ```text
-index.js runs inside backend folder and does the following:
-- Import 
-- Create express app
-- Create database connection
-- Create table for gamedata and insert sample data
-- Calls for exported async function from countriesSQLite.js. This creates europe table and its inserts
-- Define route for findAll
-- Start listening to port 3000
-- Include graceful shutdown. CTRL + C
+"express": "^5.2.1",
+"sqlite": "^5.1.1",
+"sqlite3": "5.1.6"
 ```
 
 ### Frontend
 ```text
-App.jsx start from main.jsx
-- Fetch data from backend
-- Randomly select 10 countries for the game
-- Use react states clickedCountry, targetCountries, currentIndex, score etc.
-- User interacts with the map by zooming and moving it
-- Hovering over a country highlights it
-- Clicking on a country turns it red
-- React re-renders automatically using onEffect and onState
-```
-## Troubleshooting
-
-Changes to app not reflecting?
-- Don't run it in docker, while modifying the app. In memory-SQLite will not work as intended.
-- Rebuild the image after backend changes. docker build ```bash--no-cache -t fullstack-geoguesser .```
-
-## Future improvements
-```text
-- Persistent database
-- Game restart
-- Score history
-- Difficulty levels
-- UI improvements
+"leaflet": "^1.9.4",
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"react-leaflet": "^4.2.0",
+"react-router-dom": "^7.14.0",
+"react-simple-maps": "^3.0.0"
 ```
 
+## How data moves around?
+
+Load target countries:
+<img width="587" height="175" alt="image" src="https://github.com/user-attachments/assets/7817caf0-b085-4a60-9453-21956513033f" />
+
+Data objects:
+<img width="879" height="645" alt="image" src="https://github.com/user-attachments/assets/6315f5c1-ac98-44a9-9029-4247e9a54072" />
 
 
-# Release 3
-## Routing
-```text
-- Use React router to navigate between pages.
-- Select Difficulty, Region and Mode.
-- "Start" takes you to http://localhost:5173/play and starts the game with the chosen settings.
-- "Easy" mode has 10 rounds, while "Hard" mode has 30.
-```
 
-<img width="579" height="754" alt="image" src="https://github.com/user-attachments/assets/ed42449e-ef00-457e-a2c8-7e82e1fe8a91" />
 
-## Game logic
-```text
-- View timer
-- Keep track of score
-- Keep track of rounds
-- Keep track of remaining attempts
-- "Click on country" prompt
-- "You clicked on" feedback
-- Hovering a country turns it yellow
-- Clicking the correct country turns it green
-- Clicking on the wrong country turns it red
-- Upon guessing correctly, each remaining guess adds 60 points to total score. (Max 180 / round)
-- When game ends, total score is calculated with: (prev * 5 / (time / 50 + 1)).toFixed(1))
-- 10/10, 60 seconds results in 4090 points
-- 10/10 30 seconds results in 5625 points
-- 9/10, 30 seconds results in 5062,5 points
-```
-<img width="1354" height="961" alt="image" src="https://github.com/user-attachments/assets/7c6c7d16-faa7-4141-a0a9-8aa4a550ce4a" />
-
-## Geodata
-```text
-- No longer uses API to fetch Geodata
-- React gets Geodata from /public
-- Improved map detail noticeably
-- Geodata is up to date
-```
-
-## Future improvements
-```text
-- Persistent database
-- Game restart
-- Score history
-- UI improvements
-- Audio feedback
-- Include flags. Allow playing w/ flags only.
-```
-
-# Release 4 - Release candidate
-https://fullstack-geoguesser-app.onrender.com/
-<img width="1351" height="997" alt="image" src="https://github.com/user-attachments/assets/628c0c5e-14fc-4993-a5f6-6fdc341c0168" />
-
-## UI UPDATE
-```text
-- After guessing incorrectly 3 times, highlight target country location with blue for 1.5 seconds.
-- Provide audio feedback on guesses. "tink" "brrr".
-- Display target country and guessed country flags.
-- Remove "result=x". User gets feedback on their clicks trough audio and colour changing on map component.
-- index.html forces darkmode on browser.
-- Improve the position of components.
-- Audio feedback is served from public/sounds.
-```
-
-## FLAG IMG's
-```text
-- Serve flag images to React from public/flags.
-- Countries are stored as keyword pairs in backend: Finland: "fi".
-- We loop trought these keyword pairs, adding the  corresponding flag img and turning them into data-objects.
-- Country flags are visible on the UI for "Click on:x" and "You clicked on:y"
-```
-
-## DOCUMENTATION
-```text
-- Add comprehensive comments troughout the files.
-- Improve syntax.
-- Remove any leftover code from previous half-baked solutions.
-```
-<img width="1215" height="900" alt="image" src="https://github.com/user-attachments/assets/1ffbbbc1-87bd-4825-a0b8-ff2000d2f77a" />
-
-## SQL LOGIC
-```text
-- Make components for creating SQL tables and inserting reusable.
-- SQL is called with "await addContinent(db, "europe");". Simple & clean.
-- Include "America" gamemode
-```
-
-## KNOWN ISSUES
-```text
-- Refreshing the page on "http://localhost:3000/play" gets you "cannot GET /play"
-- Some countries in the game are very small. They are hard to locate, and when they flash blue they're difficult to see.
-- Small countries are hard to click on without a good mouse. They will likely get removed.
-- Countries that don't have ISO-codes don't have their map displayed in the app.
-- Need to figure out what to do with countries that are not internationally recognized as a sovereign states.
-```
-
-## FUTURE IMPROVEMENTS
-```text
-- Persistent database
-- Game restart
-- Score history
-- UI improvements
-- Flag only gamemode. UI is there for it, but it does not work yet.
-```
-
-## CONSIDER
-```text
-These will bring up the grading
-- Support for different languages
-- UI designed with bootstrap, or material.ui or some other
-- Authentication
-- TypeScript
-- Incorporates a testing framework for testing RESTful APIs, for example Jest with Supertest or Mocha with Chai-http
-```
 
 
 

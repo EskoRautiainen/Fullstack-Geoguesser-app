@@ -20,7 +20,7 @@ Player chooses Gamemode <br>
 Player enter Username. <br>
 
 ### Final Score Formula
-Player gets 3 guesses on each round and gets 60 points for each remaining guess, earning 60/120/180 points per round. <
+Player gets 3 guesses on each round and gets 60 points for each remaining guess, earning 60/120/180 points per round.
 
 When game ends, total points are calculated with the formula: <br>
 const finalPoints = Number((newPoints * 5 / (time / 50 + 1)).toFixed(1)
@@ -160,6 +160,7 @@ Rapidly refreshing the map may temporary freeze the app <br>
 "react-leaflet": "^4.2.0",
 "react-router-dom": "^7.14.0",
 "react-simple-maps": "^3.0.0"
+"@mui/material": "^9.0.0"
 ```
 
 ## How data moves around?

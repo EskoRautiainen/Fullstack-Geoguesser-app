@@ -239,36 +239,43 @@ These will bring up the grading
 
 # Fullstack CountryGuesser
 This project is a fullstack geography game built with Node.js and React, where users guess countries on an interactive map. Project uses monorepo setup, REST API powered by Express and persistant SQL-database.
+
 <img width="938" height="986" alt="image" src="https://github.com/user-attachments/assets/78d28209-9cee-4623-aa80-81bcfd688dbc" />
 
 ## Summary
-```text
+
 CountryGuesser is a tool for learning countries and flags.
+
 User chooses Region, Difficulty and Gamemode and enters their Username.
+
 User gets 3 guesses on each round and gets 60 points for each remaining guess, earning 60/120/180 points per round.
 When game ends, total points are calculated with the formula:
+
 const finalPoints = Number((newPoints * 5 / (time / 50 + 1)).toFixed(1)
+
 Results are automatically sent to backend, from which they are served to /scores page.
+
 Scorepage splits the two modes and sorts scores in descending order.
-```
 
 ## Homepage
 
 <img width="539" height="555" alt="image" src="https://github.com/user-attachments/assets/0dae6a54-2526-4185-ba3e-2033fb555650" />
 
-```text
+
 RadioButtons have custom hover color
+
 Game can't be started if user does not enter an username.
-```
+
 
 ## Scoreboard
 
 <img width="1061" height="993" alt="image" src="https://github.com/user-attachments/assets/aebee42a-b61e-4542-a2c2-b58a0fb498f4" />
 
-```text
+
 Scores are automatically sent to backend when game ends.
+
 Scores are separated on gamemode and sorted by points.
-```
+
 
 
 

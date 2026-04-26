@@ -50,7 +50,6 @@ startGame() updates gameConfig, which is passed into Map.jsx (Game screen) as a 
 Custom styled RadioButtons <br>
 **Material UI** components <br>
 Clean dark themed layout <br>
-Play audio effect on correct/wrong guesses <br>
 Use react-router to navigate between (/ , /play and /scores) <br>
 
 ## Game screen
@@ -60,9 +59,10 @@ Zoom and pan controls <br>
 Uses 12 React hooks to alter the game state and pass information to the player <br>
 Country clicking system <br>
 Real-time feedback: <br>
-  Correct -> Green <br>
-  Wrong -> Red <br>
-  Reveal answer after failed attempts -> Blue <br>
+Correct -> Green <br>
+Wrong -> Red <br>
+Reveal answer after failed attempts -> Blue <br>
+Play audio effect on correct/wrong guesses <br>
 
 ### Displays:
 Target country <br>
@@ -165,11 +165,18 @@ Rapidly refreshing the map may temporary freeze the app <br>
 
 ## Dockerized
 <img width="738" height="512" alt="image" src="https://github.com/user-attachments/assets/5ca1ab22-da90-47c1-9d8c-c795c02f1974" />
-<img width="1283" height="469" alt="image" src="https://github.com/user-attachments/assets/7d705c5f-0b9e-4eff-95fd-b0310c93224b" />
+<img width="1281" height="509" alt="image" src="https://github.com/user-attachments/assets/6669c237-9cee-41d9-84e0-ae6f7187aa0e" />
+<br>
+### Build process
+Uses a multi-stage docker build (frontend + backend) <br>
+Frontend is built in a Node.js build stage using Vite <br>
+Backend is built in a separate Node.js runtime stage <br>
+Production build files are copied into the backend container <br>
 
-Multi-stage build (frontend + backend) <br>
-Serves built frontend via Express <br>
-
+### Deployment
+Express serves the static frontend files from the backend (/public)
+Final image contains only production-ready files (no dev dependencies)
+Application runs on a single exposed port (3000)
 
 ## What happens at npm start?
 "scripts": { <br>
@@ -187,15 +194,27 @@ Starts Vite dev server on port 5173 <br>
 "scripts": {"start": "node index.js"}<br>
 index.js runs and sets up express server <br>
 createConnection is imported from connection.js and this creates the persistant database <br>
-gamedata table is created and countries keyword pairs "Finland: fi" are inserted into SQL database <br>
+gamedata table is created. It will remain empty for now. <br>
+countrydata table is created and countries keyword pairs "Finland: fi" are inserted into SQL database <br>
 Route handlers are registered <br>
 Server starts and listens to port .env port or port 3000 <br>
 
 
 ## Code snippets
 Transform country keyword pairs into data-objects, which include flag img. <br>
-Images are served from /public. <br>
 <img width="870" height="638" alt="image" src="https://github.com/user-attachments/assets/d7cc3e75-17c7-45b6-8cbb-c7394422ef66" />
+<br>
+Select difficulty and gamemode <br>
+<img width="852" height="709" alt="image" src="https://github.com/user-attachments/assets/697a119e-c7de-44a1-89e5-7e7f46983c3e" />
+<br>
+Generate a random list of countries using gameConfig <br>
+<img width="898" height="649" alt="image" src="https://github.com/user-attachments/assets/51d5c4f9-e6f8-4817-bb62-d62f6eb21ccd" />
+<br>
+Navigation bar <br>
+<img width="597" height="586" alt="image" src="https://github.com/user-attachments/assets/f67b088f-a8a3-4a16-a787-f1cf00749d8b" />
+<br>
+
+
 
 
 

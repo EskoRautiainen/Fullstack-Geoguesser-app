@@ -56,7 +56,7 @@ function Home() {
                             <div key={g.gameId}> {/* React needs an unique key for each item */}
                                 <ListItem>
                                     <ListItemText
-                                        primary={`${g.points} pts`}
+                                        primary={`${g.points} pts | ${g.username}`}
                                         secondary={`${g.region} | ${g.difficulty}`}
                                     />
                                 </ListItem>
@@ -76,7 +76,7 @@ function Home() {
                             <div key={g.gameId}>
                                 <ListItem>
                                     <ListItemText
-                                        primary={`${g.points} pts`}
+                                        primary={`${g.points} pts | ${g.username}`}
                                         secondary={`${g.region} | ${g.difficulty}`}
                                     />
                                 </ListItem>

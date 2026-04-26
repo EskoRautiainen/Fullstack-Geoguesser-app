@@ -52,7 +52,8 @@ try {
     region TEXT NOT NULL,
     difficulty TEXT NOT NULL,
     mode TEXT NOT NULL,
-    time INTEGER NOT NULL
+    time INTEGER NOT NULL,
+    username TEXT NOT NULL
   )`);
 
   // Add countries to SQLite. App.jsx will use it later.

@@ -17,12 +17,12 @@ app.get('/api/gamedata', async (req, res) => {
 function postGameData(app, db) {
 app.post("/api/gamedata", async (req, res) => {
   try {
-    const { points, mode, region, difficulty, time } = req.body;
+    const { points, mode, region, difficulty, time, username } = req.body;
 
     await db.run(
-      `INSERT INTO gamedata (points, mode, region, difficulty, time)
-      VALUES (?, ?, ?, ?, ?)`,
-      [points, mode, region, difficulty, time]
+      `INSERT INTO gamedata (points, mode, region, difficulty, time, username)
+      VALUES (?, ?, ?, ?, ?, ?)`,
+      [points, mode, region, difficulty, time, username]
     );
   } catch (err) {
     res.status(500).json({ error: err.message });

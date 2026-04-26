@@ -128,6 +128,7 @@ function nextRound(newPoints) {
         mode: gameConfig.mode,
         region: gameConfig.region,
         difficulty: gameConfig.difficulty,
+        username: gameConfig.username,
         time: time
       })
     }).catch(err => console.error("Failed to save game:", err));

@@ -1,4 +1,4 @@
-# Fullstack CountryGuesser
+# Fullstack GeoGuesser
 This project is a fullstack geography game built with **Node.js** and **React**, where users guess countries on an interactive map, earning points for accuracy and speed. <br>
 Project uses **monorepo structure**, **REST API** backend powered by **Express** and persistant **SQL-database**.
 
@@ -11,7 +11,7 @@ npm install npm start
 
 ## Summary
 
-CountryGuesser is an educational game for learning countries and flags on an interactive map. <br>
+GeoGuesser is an educational game for learning countries and flags on an interactive map. <br>
 
 ### Players
 Player chooses Region <br>

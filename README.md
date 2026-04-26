@@ -203,12 +203,15 @@ Server starts and listens to port .env port or port 3000 <br>
 ## Code snippets
 ### Transform country keyword pairs into data-objects, which include flag img. <br>
 <img width="870" height="638" alt="image" src="https://github.com/user-attachments/assets/d7cc3e75-17c7-45b6-8cbb-c7394422ef66" />
+
 <br>
 ### Select difficulty and gamemode <br>
 <img width="852" height="709" alt="image" src="https://github.com/user-attachments/assets/697a119e-c7de-44a1-89e5-7e7f46983c3e" />
+
 <br>
 ### Generate a random list of countries using gameConfig <br>
 <img width="898" height="649" alt="image" src="https://github.com/user-attachments/assets/51d5c4f9-e6f8-4817-bb62-d62f6eb21ccd" />
+
 <br>
 ### Navigation bar <br>
 <img width="597" height="586" alt="image" src="https://github.com/user-attachments/assets/f67b088f-a8a3-4a16-a787-f1cf00749d8b" />

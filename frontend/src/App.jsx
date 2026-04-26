@@ -1,3 +1,7 @@
+// --------------------------------------------------------------------------------------------------------------------}
+//        APP ROUTER & GLOBAL STATE
+//  -------------------------------------------------------------------------------------------------------------------}
+
 // Imports
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { useState } from "react";
@@ -12,7 +16,8 @@ function App() {
 const [gameConfig, setGameConfig] = useState({
     region: "europe",
     difficulty: "easy",
-    mode: "name",
+    mode: "nameflag",
+    username: "anomymous user",
   });
 
   return (

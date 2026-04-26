@@ -12,6 +12,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import theme from "./Theme";
+import TextField from "@mui/material/TextField";
 import { ThemeProvider } from "@mui/material/styles";
 
 function Home({ setGameConfig }) {
@@ -20,10 +21,13 @@ function Home({ setGameConfig }) {
   const [region, setRegion] = useState("europe");
   const [difficulty, setDifficulty] = useState("easy");
   const [mode, setMode] = useState("nameflag");
+  const [username, setUsername] = useState("");
 
   // Start game function
   const startGame = () => {
-    setGameConfig({region, difficulty, mode});
+    if (!username) return; // Don't start game if username is empty
+
+    setGameConfig({region, difficulty, mode, username});
     navigate("/play");
 };
 
@@ -35,7 +39,7 @@ return (
         CountryGuesser
       </Typography>
 
-      {/* REGION */}
+      {/* Region */}
       <FormControl component="fieldset">
         <FormLabel
         sx={{color: "black"}}
@@ -82,10 +86,18 @@ return (
       </FormControl>
       </Box>
       
+      {/* Username */}
       <Box sx={{ bgcolor: "gray", p:2 }}>
-      <Button variant="contained" onClick={startGame} sx={{ bgcolor: "#ffff00", color: "black"}}>
-        Start
-      </Button>
+        <TextField id="filled-basic" label="Enter your name" variant="outlined" required
+        value = {username}
+        onChange={(e) => setUsername(e.target.value)} />
+      </Box>
+
+      {/* Start button */}
+      <Box sx={{ bgcolor: "gray", p:2 }}>
+        <Button variant="contained" onClick={startGame} sx={{ bgcolor: "#ffff00", color: "black"}}>
+          Start
+        </Button>
       </Box>
     </Container>
     </ThemeProvider>

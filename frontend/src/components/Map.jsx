@@ -59,14 +59,14 @@ async function fetchCountries() {
   if (gameConfig.difficulty === "easy") {
     const shuffled = countries
       .sort(() => Math.random() - 0.5) // shuffle
-      .slice(0, 9); // pick first 10. index 0-9
+      .slice(0, 10); // pick first 10. index 0-9
       setTargetCountries(shuffled);
 
   } else {
   // Hard difficulty
     const shuffled = countries
       .sort(() => Math.random() - 0.5) // shuffle
-      .slice(0, 26); // pick first 25. index 0-26
+      .slice(0, 25); // pick first 25. index 0-26
       setTargetCountries(shuffled);
     }} catch (err) {
       console.error(err);

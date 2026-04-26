@@ -238,69 +238,69 @@ These will bring up the grading
 ```
 
 # Fullstack CountryGuesser
-This project is a fullstack geography game built with **Node.js** and **React**, where users guess countries on an interactive map, earning points for accuracy and speed.
+This project is a fullstack geography game built with **Node.js** and **React**, where users guess countries on an interactive map, earning points for accuracy and speed. <br>
 Project uses **monorepo structure**, **REST API** backend powered by **Express** and persistant **SQL-database**.
 
 <img width="938" height="986" alt="image" src="https://github.com/user-attachments/assets/78d28209-9cee-4623-aa80-81bcfd688dbc" />
 
 ## Summary
 
-CountryGuesser is an educational game for learning countries and flags on an interactive map.
+CountryGuesser is an educational game for learning countries and flags on an interactive map. <br>
 
 ### Players
-Player chooses Region
-Player chooses Difficulty
-Player chooses Gamemode
-Player enter Username.
+Player chooses Region <br>
+Player chooses Difficulty <br>
+Player chooses Gamemode <br>
+Player enter Username. <br>
 
 ### Final Score Formula
-Player gets 3 guesses on each round and gets 60 points for each remaining guess, earning 60/120/180 points per round.
+Player gets 3 guesses on each round and gets 60 points for each remaining guess, earning 60/120/180 points per round. <
 
-When game ends, total points are calculated with the formula:
+When game ends, total points are calculated with the formula: <br>
 const finalPoints = Number((newPoints * 5 / (time / 50 + 1)).toFixed(1)
 
 
 ### Results System
-Results are automatically sent to the backend when the game ends.
-Scores are stored in a SQLite database
-/scores page fetches and displays results
-Scores are grouped by gamemode
-Scores are sorted in descending order
-/scores displays points, username, region and difficulty.
+Results are automatically sent to the backend when the game ends. <br>
+Scores are stored in a SQLite database <br>
+/scores page fetches and displays results <br>
+Scores are grouped by gamemode  <br>
+Scores are sorted in descending order <br>
+/scores displays points, username, region and difficulty. <br>
 
 ## Homepage
 
 <img width="539" height="555" alt="image" src="https://github.com/user-attachments/assets/0dae6a54-2526-4185-ba3e-2033fb555650" />
 
 ### Features
-Select Region (Europe/Africa/Asia)
-Select Difficulty (Easy/Hard)
-Select Gamemode (Name + Flag / Flag only)
-Enter Username
-Start button is disabled, until username is provided.
+Select Region (Europe/Africa/Asia) <br>
+Select Difficulty (Easy/Hard) <br>
+Select Gamemode (Name + Flag / Flag only) <br>
+Enter Username <br>
+Start button is disabled, until username is provided. <br>
 
 ### UI
-Custom styled RadioButtons
-Material UI components
-Clean dark themed layout
+Custom styled RadioButtons <br>
+Material UI components <br>
+Clean dark themed layout <br>
 
 ## Game screen
 ### Features:
-Interactive world map
-Zoom and pan controls
-Country clicking system
-Real-time feedback:
-  Correct -> Green
-  Wrong -> Red
-  Reveal answer after failed attempts -> Blue
+Interactive world map <br>
+Zoom and pan controls <br>
+Country clicking system <br>
+Real-time feedback: <br>
+  Correct -> Green <br>
+  Wrong -> Red <br>
+  Reveal answer after failed attempts -> Blue <br>
 
 ### Displays:
-Target country
-Clicked country
-Score
-Time
-Remaining attempts
-Country flag is served from /public if user plays "Name + Flag" mode.
+Target country <br>
+Clicked country <br>
+Score <br>
+Time <br>
+Remaining attempts <br>
+Country flag is served from /public if user plays "Name + Flag" mode. <br>
 
 
 ## Scoreboard
@@ -308,16 +308,16 @@ Country flag is served from /public if user plays "Name + Flag" mode.
 <img width="1061" height="993" alt="image" src="https://github.com/user-attachments/assets/aebee42a-b61e-4542-a2c2-b58a0fb498f4" />
 
 
-Features:
-Display all past games
-Split game modes to their own sections
-Sorted by highest score
+### Features: <br>
+Display all past games <br>
+Split game modes to their own sections <br>
+Sorted by highest score <br>
 
-Shows:
-  Points
-  Username
-  Region
-  Difficulty
+### Shows:
+  Points <br>
+  Username <br>
+  Region <br>
+  Difficulty <br>
 
   
 ## Backend

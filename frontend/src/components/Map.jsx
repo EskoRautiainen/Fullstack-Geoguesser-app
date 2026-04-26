@@ -3,7 +3,9 @@ import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simp
 import { StatsGrid1, StatsGrid2 } from "./Stats";
 import Controls from "./Controls";
 import playSound from "./PlayAudio";
+import { Link } from "react-router-dom";
 import "./../App.css";
+import Button from "@mui/material/Button";
 
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -222,7 +224,18 @@ return (
         {!gameOver ? (
           <p><b>Guesses remaining: {attempt}</b></p>
         ) : (
+          <>
           <p><b>GAME OVER!</b></p>
+          <Button
+            component={Link}
+            to="/"
+            variant="contained"
+            size="small"
+            sx={{ bgcolor: "#ffff00", color: "black", mt: 1 }}
+          >
+          Play again?
+          </Button>
+          </>
         )}
       </div>
 
